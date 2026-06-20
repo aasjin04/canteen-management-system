@@ -24,6 +24,8 @@ import {
 import { useCart } from "../context/CartContext";
 import { useSpots } from "../context/SpotContext";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 const paymentMethods = [
   {
     value: "UPI",
@@ -109,7 +111,7 @@ export default function Cart() {
 
       const token = localStorage.getItem("token");
 
-      await axios.post("http://localhost:5000/api/orders", newOrder, {
+      await axios.post(`${API_URL}/api/orders`, newOrder, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

@@ -3,6 +3,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 import axios from "axios";
 
 const OrderContext = createContext();
+const API_URL = import.meta.env.VITE_API_URL;
 
 export function OrderProvider({ children }) {
   const [orders, setOrders] = useState([]);
@@ -16,8 +17,8 @@ export function OrderProvider({ children }) {
 
       const url =
         user.role === "admin"
-          ? "http://localhost:5000/api/orders"
-          : "http://localhost:5000/api/orders/my";
+          ? `${API_URL}/api/orders`
+          : `${API_URL}/api/orders/my`;
 
       const res = await axios.get(url, {
         headers: {
@@ -39,7 +40,7 @@ export function OrderProvider({ children }) {
     try {
       const token = localStorage.getItem("token");
 
-      const res = await axios.post("http://localhost:5000/api/orders", order, {
+      const res = await axios.post(`${API_URL}/api/orders`, order, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -56,7 +57,7 @@ export function OrderProvider({ children }) {
       const token = localStorage.getItem("token");
 
       const res = await axios.put(
-        `http://localhost:5000/api/orders/${orderId}`,
+        `${API_URL}/api/orders/${orderId}`,
         { status: newStatus },
         {
           headers: {
@@ -77,7 +78,7 @@ export function OrderProvider({ children }) {
     try {
       const token = localStorage.getItem("token");
 
-      await axios.delete(`http://localhost:5000/api/orders/${orderId}`, {
+      await axios.delete(`${API_URL}/api/orders/${orderId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

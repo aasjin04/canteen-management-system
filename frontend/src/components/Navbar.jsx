@@ -86,7 +86,7 @@ export default function Navbar() {
     user?.role === "student" ? studentLinks : user ? [] : authLinks;
 
   return (
-    <nav className="sticky top-0 z-50 border-b border-[#E8DCCF] bg-white/95 shadow-sm shadow-[#3B2416]/5 backdrop-blur-xl">
+    <nav className="relative z-50 border-b border-[#E8DCCF] bg-white/95 shadow-sm shadow-[#3B2416]/5 backdrop-blur-xl">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex min-h-16 items-center justify-between gap-4">
           <Link to="/" onClick={closeMenu} className="flex items-center gap-3">

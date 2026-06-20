@@ -60,10 +60,10 @@ export default function Register() {
   };
 
   return (
-    <main className="min-h-screen bg-[#FAF6F0] text-[#20130D]">
-      <div className="grid min-h-screen lg:grid-cols-[520px_1fr]">
-        <section className="flex items-center justify-center px-4 py-10 sm:px-6 lg:px-10">
-          <div className="w-full max-w-md">
+    <main className="min-h-dvh bg-[#FAF6F0] text-[#20130D]">
+      <div className="grid min-h-dvh lg:grid-cols-2">
+        <section className="flex items-center justify-center px-4 py-8 sm:px-6 lg:px-10">
+          <div className="w-full max-w-lg">
             <Link
               to="/"
               className="mb-5 inline-flex items-center gap-2 rounded-lg border border-[#E8DCCF] bg-white px-3 py-2 text-sm font-bold text-[#3B2416] shadow-sm transition hover:border-[#D79A4B] hover:text-[#9A5B22]"
@@ -86,7 +86,7 @@ export default function Register() {
               </div>
             </div>
 
-            <div className="rounded-xl border border-[#E8DCCF] bg-white p-6 shadow-xl shadow-[#3B2416]/10 sm:p-8">
+            <div className="rounded-xl border border-[#E8DCCF] bg-white p-5 shadow-xl shadow-[#3B2416]/10 sm:p-8">
               <div>
                 <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-lg bg-[#FFF3E4] text-[#9A5B22]">
                   <Rocket size={24} />
@@ -207,7 +207,7 @@ export default function Register() {
           </div>
         </section>
 
-        <section className="hidden bg-[#3B2416] px-10 py-12 text-white lg:flex lg:flex-col lg:justify-between">
+        <section className="hidden bg-[#3B2416] px-8 py-10 text-white lg:flex lg:flex-col lg:justify-between xl:px-12">
           <div className="flex items-center gap-3">
             <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-[#D79A4B] text-[#3B2416]">
               <UtensilsCrossed size={23} />

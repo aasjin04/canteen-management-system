@@ -2,6 +2,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 import axios from "axios";
 
 const SpotContext = createContext();
+const API_URL = import.meta.env.VITE_API_URL;
 
 export function SpotProvider({ children }) {
   const [spots, setSpots] = useState([]);
@@ -9,7 +10,7 @@ export function SpotProvider({ children }) {
   // GET all spots
   const fetchSpots = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/spots");
+      const res = await axios.get(`${API_URL}/api/spots`);
       setSpots(res.data);
     } catch (err) {
       console.log(err);
@@ -19,7 +20,7 @@ export function SpotProvider({ children }) {
   // ✅ ADD spot (MISSING PART)
   const addSpot = async (name) => {
     try {
-      const res = await axios.post("http://localhost:5000/api/spots", {
+      const res = await axios.post(`${API_URL}/api/spots`, {
         name,
       });
 
@@ -33,7 +34,7 @@ export function SpotProvider({ children }) {
   // (optional) DELETE spot
   const deleteSpot = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/spots/${id}`);
+      await axios.delete(`${API_URL}/api/spots/${id}`);
 
       setSpots((prev) => prev.filter((s) => s._id !== id));
     } catch (err) {

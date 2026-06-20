@@ -8,6 +8,7 @@ import {
 import axios from "axios";
 
 const FoodContext = createContext();
+const API_URL = import.meta.env.VITE_API_URL;
 
 export function FoodProvider({ children }) {
   const [foods, setFoods] = useState([]);
@@ -16,7 +17,7 @@ export function FoodProvider({ children }) {
   const fetchFoods = async () => {
     try {
       const res = await axios.get(
-        "http://localhost:5000/api/foods"
+        `${API_URL}/api/foods`
       );
 
       setFoods(res.data);
@@ -33,7 +34,7 @@ export function FoodProvider({ children }) {
   const addFood = async (food) => {
     try {
       const res = await axios.post(
-        "http://localhost:5000/api/foods",
+        `${API_URL}/api/foods`,
         food
       );
 
@@ -50,7 +51,7 @@ export function FoodProvider({ children }) {
   const updateFood = async (id, foodData) => {
     try {
       const res = await axios.put(
-        `http://localhost:5000/api/foods/${id}`,
+        `${API_URL}/api/foods/${id}`,
         foodData
       );
 
@@ -68,7 +69,7 @@ export function FoodProvider({ children }) {
   const deleteFood = async (id) => {
     try {
       await axios.delete(
-        `http://localhost:5000/api/foods/${id}`
+        `${API_URL}/api/foods/${id}`
       );
 
       setFoods((prev) =>

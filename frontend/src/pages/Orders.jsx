@@ -21,6 +21,8 @@ import {
   XCircle,
 } from "lucide-react";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 const statusStyles = {
   completed: {
     label: "Completed",
@@ -100,7 +102,7 @@ export default function Orders() {
       setError("");
 
       const token = localStorage.getItem("token");
-      const res = await axios.get("http://localhost:5000/api/orders/my", {
+      const res = await axios.get(`${API_URL}/api/orders/my`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -134,7 +136,7 @@ export default function Orders() {
 
       const token = localStorage.getItem("token");
 
-      await axios.delete(`http://localhost:5000/api/orders/${orderId}`, {
+      await axios.delete(`${API_URL}/api/orders/${orderId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -163,7 +165,7 @@ export default function Orders() {
       const token = localStorage.getItem("token");
 
       const res = await axios.put(
-        `http://localhost:5000/api/orders/${orderId}/cancel`,
+        `${API_URL}/api/orders/${orderId}/cancel`,
         {},
         {
           headers: {

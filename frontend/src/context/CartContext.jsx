@@ -13,6 +13,7 @@ const [cartItems, setCartItems] = useState(() => {
     ? JSON.parse(savedCart)
     : [];
 });
+const [cartNotice, setCartNotice] = useState("");
 
 const addToCart = (food) => {
   setCartItems((prev) => {
@@ -33,6 +34,7 @@ const addToCart = (food) => {
       ];
     }
   });
+  setCartNotice(`${food.name} added to cart`);
 };
 
 const increaseQuantity = (id) => {
@@ -74,6 +76,16 @@ useEffect(() => {
   );
 }, [cartItems]);
 
+useEffect(() => {
+  if (!cartNotice) return undefined;
+
+  const timeoutId = setTimeout(() => {
+    setCartNotice("");
+  }, 2200);
+
+  return () => clearTimeout(timeoutId);
+}, [cartNotice]);
+
   return (
     <CartContext.Provider
     value={{
@@ -83,6 +95,7 @@ useEffect(() => {
   decreaseQuantity,
   removeItem,
   clearCart,
+  cartNotice,
 }}
     >
       {children}

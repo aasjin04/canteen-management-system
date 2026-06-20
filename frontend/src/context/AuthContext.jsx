@@ -2,6 +2,7 @@ import { createContext, useContext, useState } from "react";
 import axios from "axios";
 
 const AuthContext = createContext();
+const API_URL = import.meta.env.VITE_API_URL;
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(() => {
@@ -11,7 +12,7 @@ export function AuthProvider({ children }) {
   });
 
   const login = async (email, password) => {
-    const res = await axios.post("http://localhost:5000/api/auth/login", {
+    const res = await axios.post(`${API_URL}/api/auth/login`, {
       email,
       password,
     });
@@ -28,7 +29,7 @@ export function AuthProvider({ children }) {
   };
 
   const register = async (name, email, password) => {
-    const res = await axios.post("http://localhost:5000/api/auth/register", {
+    const res = await axios.post(`${API_URL}/api/auth/register`, {
       name,
       email,
       password,
