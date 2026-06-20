@@ -4,15 +4,18 @@ import {
   ArrowLeft,
   ChefHat,
   Search,
+  ShoppingCart,
   Sparkles,
   Soup,
   UtensilsCrossed,
 } from "lucide-react";
 import { useFoods } from "../context/FoodContext";
+import { useCart } from "../context/CartContext";
 import FoodCard from "../components/FoodCard";
 
 export default function Menu() {
   const { foods } = useFoods();
+  const { cartItems } = useCart();
   const [search, setSearch] = useState("");
 
   const filteredFoods = useMemo(
@@ -24,6 +27,10 @@ export default function Menu() {
   );
 
   const featuredCount = foods.filter((food) => food.featured).length;
+  const cartCount = cartItems.reduce(
+    (sum, item) => sum + Number(item.quantity || 0),
+    0
+  );
 
   return (
     <main className="min-h-screen bg-[#F7F1E8] text-[#201A16]">
@@ -86,10 +93,25 @@ export default function Menu() {
 
       <section className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
         <div className="mb-8 rounded-lg border border-[#DDD0C1] bg-white p-4 shadow-sm">
-          <label className="mb-3 flex items-center gap-2 text-sm font-bold text-[#201A16]">
-            <Search size={16} className="text-[#BE6F22]" />
-            Search Menu
-          </label>
+          <div className="mb-3 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <label className="flex items-center gap-2 text-sm font-bold text-[#201A16]">
+              <Search size={16} className="text-[#BE6F22]" />
+              Search Menu
+            </label>
+
+            <Link
+              to="/cart"
+              className="inline-flex w-fit items-center gap-2 rounded-md bg-[#201A16] px-4 py-2 text-sm font-bold text-white transition hover:bg-[#332820]"
+            >
+              <ShoppingCart size={16} />
+              Go to Cart
+              {cartCount > 0 && (
+                <span className="rounded-full bg-[#E9C48E] px-2 py-0.5 text-xs font-extrabold text-[#201A16]">
+                  {cartCount}
+                </span>
+              )}
+            </Link>
+          </div>
 
           <div className="relative">
             <Search

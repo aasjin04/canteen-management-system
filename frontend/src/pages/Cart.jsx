@@ -86,12 +86,16 @@ export default function Cart() {
 
   const handlePlaceOrder = async () => {
     if (!selectedSpot) {
-      setMessage({ type: "error", text: "Please select a pickup spot." });
+      const text = "Please select a pickup spot.";
+      window.alert(text);
+      setMessage({ type: "error", text });
       return;
     }
 
     if (!paymentMethod) {
-      setMessage({ type: "error", text: "Please select a payment method." });
+      const text = "Please select a payment method.";
+      window.alert(text);
+      setMessage({ type: "error", text });
       return;
     }
 
