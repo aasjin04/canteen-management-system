@@ -104,7 +104,7 @@ export default function Navbar() {
     user?.role === "student" ? studentLinks : user ? [] : guestLinks;
 
   return (
-    <nav className="relative z-50 border-b border-[#E8DCCF] bg-white/95 shadow-sm shadow-[#3B2416]/5 backdrop-blur-xl">
+    <nav className="relative z-[120] border-b border-[#E8DCCF] bg-white/95 shadow-sm shadow-[#3B2416]/5 backdrop-blur-xl">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex min-h-16 items-center justify-between gap-4">
           <Link to="/" onClick={closeMenu} className="flex items-center gap-3">
@@ -178,14 +178,14 @@ export default function Navbar() {
               <motion.button
                 type="button"
                 aria-label="Close navigation"
-                className="fixed inset-0 z-[80] bg-[#20130D]/45 backdrop-blur-[2px]"
+                className="fixed inset-0 z-[120] bg-[#20130D]/85"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 onClick={closeMenu}
               />
               <motion.aside
-                className="fixed bottom-0 right-0 top-0 z-[90] flex w-[84vw] max-w-sm flex-col border-l border-[#E8DCCF] bg-[#FFFBF6] p-4 shadow-2xl shadow-[#20130D]/25"
+                className="fixed bottom-0 right-0 top-0 z-[130] flex w-[84vw] max-w-sm flex-col border-l border-[#E8DCCF] bg-[#FFFBF6] p-4 shadow-2xl shadow-[#20130D]/40"
                 initial={{ x: "100%" }}
                 animate={{ x: 0 }}
                 exit={{ x: "100%" }}
