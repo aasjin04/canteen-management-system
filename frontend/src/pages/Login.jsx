@@ -11,6 +11,7 @@ import {
   Sparkles,
 } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
+import BrandLogo from "../components/BrandLogo";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -47,13 +48,7 @@ export default function Login() {
       <div className="grid min-h-dvh lg:grid-cols-2">
         <section className="hidden bg-[#3B2416] px-8 py-10 text-white lg:flex lg:flex-col lg:justify-between xl:px-12">
           <div className="flex items-center gap-3">
-            <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-[#D79A4B] text-sm font-black tracking-tight text-[#3B2416]">
-              NQ
-            </div>
-            <div>
-              <h1 className="text-xl font-extrabold">Nouriq</h1>
-              <p className="text-sm text-white/60">Smart campus ordering</p>
-            </div>
+            <BrandLogo dark subtitle="Canteen Hub" />
           </div>
 
           <div className="max-w-xl">
@@ -103,15 +98,7 @@ export default function Login() {
 
             <div className="mb-8 lg:hidden">
               <div className="flex items-center gap-3">
-                <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-[#3B2416] text-[#D79A4B]">
-                  <span className="text-sm font-black tracking-tight">NQ</span>
-                </div>
-                <div>
-                  <h1 className="text-xl font-extrabold">Nouriq</h1>
-                  <p className="text-sm text-[#667085]">
-                    Smart campus ordering
-                  </p>
-                </div>
+                <BrandLogo subtitle="Canteen Hub" />
               </div>
             </div>
 
@@ -190,7 +177,7 @@ export default function Login() {
               </form>
 
               <p className="mt-6 text-center text-sm text-[#667085]">
-                New to Nouriq?{" "}
+                New to Veyra?{" "}
                 <Link
                   to="/register"
                   className="font-bold text-[#3B2416] hover:text-[#9A5B22]"

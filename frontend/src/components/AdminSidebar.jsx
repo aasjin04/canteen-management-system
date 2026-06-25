@@ -4,9 +4,9 @@ import {
   ChevronRight,
   ClipboardList,
   MapPinned,
-  ShieldCheck,
   UtensilsCrossed,
 } from "lucide-react";
+import { BrandMark } from "./BrandLogo";
 
 const navItems = [
   {
@@ -49,9 +49,7 @@ export default function AdminSidebar() {
       <div className="relative flex w-full flex-col border-b border-white/10 bg-[linear-gradient(155deg,#20130D_0%,#2B190F_48%,#120B08_100%)] px-3 py-4 lg:h-full lg:border-b-0 lg:border-r lg:px-5 lg:py-6">
         <div className="rounded-lg border border-white/10 bg-white/[0.07] p-3 shadow-xl shadow-black/20 backdrop-blur lg:p-4">
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[#F0B35B] text-[#24140B] shadow-lg shadow-[#F0B35B]/20 lg:h-12 lg:w-12">
-              <ShieldCheck size={23} />
-            </div>
+            <BrandMark className="h-10 w-10 lg:h-12 lg:w-12" dark />
 
             <div className="min-w-0">
               <p className="text-[10px] font-extrabold uppercase tracking-[0.18em] text-[#F0B35B] lg:hidden">
@@ -133,7 +131,7 @@ export default function AdminSidebar() {
 
         <div className="mt-auto hidden rounded-lg border border-[#F0B35B]/20 bg-[#F0B35B]/10 p-4 lg:block">
           <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#F0B35B]">
-            Nouriq
+            Veyra
           </p>
           <p className="mt-2 text-sm font-semibold leading-6 text-[#F7E8D4]">
             Control orders, food items, and pickup spots from one polished

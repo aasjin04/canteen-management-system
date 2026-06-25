@@ -103,7 +103,7 @@ export default function Home() {
                 className="mb-5 inline-flex items-center gap-2 rounded-md border border-white/15 bg-white/10 px-3 py-2 text-sm font-semibold text-[#FFD166]"
               >
                 <Sparkles size={16} />
-                Smart campus dining
+                Smart Canteen Hub
               </motion.div>
 
               <motion.h1

@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
 import { useCart } from "../context/CartContext";
+import BrandLogo from "./BrandLogo";
 
 function NavItem({
   to,
@@ -102,22 +103,7 @@ export default function Navbar() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex min-h-16 items-center justify-between gap-4">
           <Link to="/" onClick={closeMenu} className="flex items-center gap-3">
-            <motion.div
-              whileHover={{ scale: 1.04 }}
-              className="flex h-11 w-11 items-center justify-center rounded-lg bg-[#20130D] text-sm font-black tracking-tight text-[#F0B35B] shadow-md shadow-[#3B2416]/15"
-            >
-              NQ
-            </motion.div>
-
-            <div className="leading-tight">
-              <h1 className="text-xl font-extrabold text-[#20130D]">
-                Nouriq
-              </h1>
-              <p className="text-[11px] font-semibold uppercase tracking-wide text-[#8A7A6C]">
-                Campus Dining 
-                
-              </p>
-            </div>
+            <BrandLogo animated />
           </Link>
 
           <div className="hidden items-center gap-2 lg:flex">
