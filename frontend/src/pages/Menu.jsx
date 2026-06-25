@@ -55,7 +55,6 @@ export default function Menu() {
 
               <h1
                 className="text-4xl font-semibold leading-none sm:text-5xl lg:text-6xl"
-                style={{ fontFamily: '"Playfair Display", Georgia, serif' }}
               >
                 Explore Delicious Food
               </h1>
@@ -143,7 +142,6 @@ export default function Menu() {
                 </div>
                 <h2
                   className="mt-6 text-3xl font-semibold text-[#201A16]"
-                  style={{ fontFamily: '"Playfair Display", Georgia, serif' }}
                 >
                   No food found
                 </h2>

@@ -1,12 +1,11 @@
 import { useMemo, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { toast } from "react-toastify";
 import {
-  AlertCircle,
   ArrowLeft,
   ArrowRight,
   Banknote,
-  CheckCircle2,
   ChevronDown,
   CreditCard,
   IndianRupee,
@@ -23,6 +22,7 @@ import {
 } from "lucide-react";
 import { useCart } from "../context/CartContext";
 import { useSpots } from "../context/SpotContext";
+import { useAuth } from "../context/AuthContext";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -56,6 +56,8 @@ const formatCurrency = (value) =>
 
 export default function Cart() {
   const { spots } = useSpots();
+  const { user } = useAuth();
+  const navigate = useNavigate();
   const {
     cartItems,
     increaseQuantity,
@@ -67,7 +69,7 @@ export default function Cart() {
   const [paymentMethod, setPaymentMethod] = useState("");
   const [selectedSpot, setSelectedSpot] = useState("");
   const [isPlacingOrder, setIsPlacingOrder] = useState(false);
-  const [message, setMessage] = useState({ type: "", text: "" });
+  const [showAuthPrompt, setShowAuthPrompt] = useState(false);
 
   const total = useMemo(
     () =>
@@ -86,16 +88,23 @@ export default function Cart() {
 
   const handlePlaceOrder = async () => {
     if (!selectedSpot) {
-      const text = "Please select a pickup spot.";
-      window.alert(text);
-      setMessage({ type: "error", text });
+      toast.error("Please select a pickup spot.");
       return;
     }
 
     if (!paymentMethod) {
-      const text = "Please select a payment method.";
-      window.alert(text);
-      setMessage({ type: "error", text });
+      toast.error("Please select a payment method.");
+      return;
+    }
+
+    if (!user) {
+      setShowAuthPrompt(true);
+      toast.error("Please login or create an account to place your order.");
+      return;
+    }
+
+    if (user.role === "admin") {
+      toast.error("Admin accounts cannot place student orders.");
       return;
     }
 
@@ -111,7 +120,7 @@ export default function Cart() {
 
     try {
       setIsPlacingOrder(true);
-      setMessage({ type: "", text: "" });
+      setShowAuthPrompt(false);
 
       const token = localStorage.getItem("token");
 
@@ -124,16 +133,12 @@ export default function Cart() {
       clearCart();
       setPaymentMethod("");
       setSelectedSpot("");
-      setMessage({
-        type: "success",
-        text: "Order placed successfully. Your cart is ready for the next craving.",
-      });
+      toast.success(
+        "Order placed successfully. Your cart is ready for the next craving."
+      );
     } catch (error) {
       console.log(error);
-      setMessage({
-        type: "error",
-        text: "Order failed. Please try again in a moment.",
-      });
+      toast.error("Order failed. Please try again in a moment.");
     } finally {
       setIsPlacingOrder(false);
     }
@@ -155,12 +160,11 @@ export default function Cart() {
             <div>
               <div className="mb-5 inline-flex items-center gap-2 rounded-md border border-white/15 bg-white/10 px-3 py-2 text-sm font-semibold text-[#E9C48E]">
                 <Sparkles size={16} />
-                Premium checkout
+                Secure checkout
               </div>
 
               <h1
                 className="text-4xl font-semibold leading-none sm:text-5xl lg:text-6xl"
-                style={{ fontFamily: '"Playfair Display", Georgia, serif' }}
               >
                 My Cart
               </h1>
@@ -195,20 +199,36 @@ export default function Cart() {
       </section>
 
       <section className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
-        {message.text && (
-          <div
-            className={`mb-6 flex items-center gap-3 rounded-lg border px-4 py-3 ${
-              message.type === "success"
-                ? "border-emerald-200 bg-emerald-50 text-emerald-700"
-                : "border-red-200 bg-red-50 text-red-700"
-            }`}
-          >
-            {message.type === "success" ? (
-              <CheckCircle2 size={18} />
-            ) : (
-              <AlertCircle size={18} />
-            )}
-            <p className="font-medium">{message.text}</p>
+        {showAuthPrompt && (
+          <div className="mb-6 rounded-lg border border-[#E8DCCF] bg-white p-5 shadow-lg shadow-[#3B2416]/10">
+            <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+              <div>
+                <p className="text-lg font-extrabold text-[#201A16]">
+                  Sign in to place your order
+                </p>
+                <p className="mt-1 text-sm font-semibold text-[#756657]">
+                  You can browse the menu and build your cart first. Login only
+                  when you are ready to checkout.
+                </p>
+              </div>
+
+              <div className="flex flex-col gap-2 sm:flex-row">
+                <button
+                  type="button"
+                  onClick={() => navigate("/login")}
+                  className="inline-flex items-center justify-center rounded-md bg-[#201A16] px-5 py-3 text-sm font-bold text-white transition hover:bg-[#332820]"
+                >
+                  Login
+                </button>
+                <button
+                  type="button"
+                  onClick={() => navigate("/register")}
+                  className="inline-flex items-center justify-center rounded-md border border-[#D8C8B8] bg-[#FBF6EF] px-5 py-3 text-sm font-bold text-[#201A16] transition hover:border-[#BE8A4C]"
+                >
+                  Register
+                </button>
+              </div>
+            </div>
           </div>
         )}
 
@@ -221,7 +241,6 @@ export default function Cart() {
                 </div>
                 <h2
                   className="mt-6 text-3xl font-semibold text-[#201A16]"
-                  style={{ fontFamily: '"Playfair Display", Georgia, serif' }}
                 >
                   Your cart is empty
                 </h2>
@@ -269,10 +288,7 @@ export default function Cart() {
                             Canteen selection
                           </p>
                           <h2
-                            className="mt-1 text-2xl font-semibold text-[#201A16]"
-                            style={{
-                              fontFamily: '"Playfair Display", Georgia, serif',
-                            }}
+                            className="food-display mt-1 text-2xl font-semibold text-[#201A16]"
                           >
                             {item.name}
                           </h2>
@@ -339,7 +355,6 @@ export default function Cart() {
                   </p>
                   <h2
                     className="mt-1 text-2xl font-semibold text-[#201A16]"
-                    style={{ fontFamily: '"Playfair Display", Georgia, serif' }}
                   >
                     Order Summary
                   </h2>

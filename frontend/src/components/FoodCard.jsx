@@ -60,8 +60,7 @@ export default function FoodCard({ food }) {
         <div className="min-h-[88px]">
           <p className="text-sm font-bold text-[#BE6F22]">Campus kitchen</p>
           <h2
-            className="mt-1 text-2xl font-semibold leading-tight text-[#201A16]"
-            style={{ fontFamily: '"Playfair Display", Georgia, serif' }}
+            className="food-display mt-1 text-2xl font-semibold leading-tight text-[#201A16]"
           >
             {food.name}
           </h2>

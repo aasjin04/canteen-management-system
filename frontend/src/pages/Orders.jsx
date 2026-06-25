@@ -242,12 +242,11 @@ export default function Orders() {
             <div className="max-w-3xl">
               <div className="mb-5 inline-flex items-center gap-2 rounded-md border border-white/15 bg-white/10 px-3 py-2 text-sm font-semibold text-[#E9C48E]">
                 <Sparkles size={16} />
-                Premium order desk
+                Order desk
               </div>
 
               <h1
                 className="text-4xl font-semibold leading-none sm:text-5xl lg:text-6xl"
-                style={{ fontFamily: '"Playfair Display", Georgia, serif' }}
               >
                 My Orders
               </h1>
@@ -301,7 +300,6 @@ export default function Orders() {
             </div>
             <h2
               className="mt-5 text-2xl font-semibold"
-              style={{ fontFamily: '"Playfair Display", Georgia, serif' }}
             >
               Preparing your order history
             </h2>
@@ -318,7 +316,6 @@ export default function Orders() {
                 </div>
                 <h2
                   className="mt-6 text-3xl font-semibold text-[#201A16]"
-                  style={{ fontFamily: '"Playfair Display", Georgia, serif' }}
                 >
                   No orders yet
                 </h2>
@@ -354,9 +351,6 @@ export default function Orders() {
                           </p>
                           <h2
                             className="mt-1 text-2xl font-semibold text-[#201A16]"
-                            style={{
-                              fontFamily: '"Playfair Display", Georgia, serif',
-                            }}
                           >
                             Canteen pickup receipt
                           </h2>

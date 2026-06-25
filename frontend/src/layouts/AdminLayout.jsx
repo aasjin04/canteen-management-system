@@ -2,12 +2,12 @@ import AdminSidebar from "../components/AdminSidebar";
 
 export default function AdminLayout({ children }) {
   return (
-    <div className="flex">
+    <div className="min-h-screen bg-[#FBF6EF] lg:flex">
       <AdminSidebar />
 
-      <div className="flex-1 p-6">
+      <main className="min-w-0 flex-1 p-3 sm:p-4 lg:p-6">
         {children}
-      </div>
+      </main>
     </div>
   );
 }

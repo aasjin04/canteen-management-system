@@ -5,7 +5,6 @@ import {
   ClipboardList,
   MapPinned,
   ShieldCheck,
-  Sparkles,
   UtensilsCrossed,
 } from "lucide-react";
 
@@ -43,32 +42,30 @@ const navItems = [
 
 export default function AdminSidebar() {
   return (
-    <aside className="sticky top-0 flex min-h-screen w-72 shrink-0 overflow-hidden bg-[#160F0B] text-white shadow-2xl shadow-[#160F0B]/30">
+    <aside className="relative w-full shrink-0 overflow-hidden bg-[#160F0B] text-white shadow-2xl shadow-[#160F0B]/20 lg:sticky lg:top-0 lg:h-screen lg:w-72">
       <div className="absolute -left-16 top-10 h-44 w-44 rounded-full bg-[#D79A4B]/20 blur-3xl" />
       <div className="absolute -right-20 bottom-20 h-56 w-56 rounded-full bg-[#8B3A20]/30 blur-3xl" />
 
-      <div className="relative flex w-full flex-col border-r border-white/10 bg-[linear-gradient(155deg,#20130D_0%,#2B190F_48%,#120B08_100%)] px-5 py-6">
-        <div className="rounded-lg border border-white/10 bg-white/[0.07] p-4 shadow-xl shadow-black/20 backdrop-blur">
+      <div className="relative flex w-full flex-col border-b border-white/10 bg-[linear-gradient(155deg,#20130D_0%,#2B190F_48%,#120B08_100%)] px-3 py-4 lg:h-full lg:border-b-0 lg:border-r lg:px-5 lg:py-6">
+        <div className="rounded-lg border border-white/10 bg-white/[0.07] p-3 shadow-xl shadow-black/20 backdrop-blur lg:p-4">
           <div className="flex items-center gap-3">
-            <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-[#F0B35B] text-[#24140B] shadow-lg shadow-[#F0B35B]/20">
-              <ShieldCheck size={25} />
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[#F0B35B] text-[#24140B] shadow-lg shadow-[#F0B35B]/20 lg:h-12 lg:w-12">
+              <ShieldCheck size={23} />
             </div>
 
-            <div>
-              {/* <p className="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-2 py-1 text-[10px] font-extrabold uppercase tracking-[0.18em] text-[#F6D49E]">
-                <Sparkles size={11} />
-                Premium
-              </p> */}
+            <div className="min-w-0">
+              <p className="text-[10px] font-extrabold uppercase tracking-[0.18em] text-[#F0B35B] lg:hidden">
+                Admin Workspace
+              </p>
               <h2
-                className="mt-2 text-2xl font-semibold leading-none text-white"
-                style={{ fontFamily: '"Playfair Display", Georgia, serif' }}
+                className="mt-1 truncate text-2xl font-semibold leading-none text-white lg:mt-2"
               >
                 Admin Panel
               </h2>
             </div>
           </div>
 
-          <div className="mt-5 grid grid-cols-2 gap-3">
+          <div className="mt-4 grid grid-cols-2 gap-2 sm:max-w-sm lg:mt-5 lg:max-w-none lg:gap-3">
             <div className="rounded-lg border border-white/10 bg-[#F9E1BA]/10 px-3 py-2">
               <p className="text-[10px] font-bold uppercase tracking-wider text-[#D9B985]">
                 Role
@@ -84,13 +81,13 @@ export default function AdminSidebar() {
           </div>
         </div>
 
-        <nav className="mt-8 flex flex-col gap-3">
+        <nav className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-4 lg:mt-8 lg:flex lg:flex-col lg:gap-3">
           {navItems.map(({ to, label, description, Icon, accent }) => (
             <NavLink
               key={to}
               to={to}
               className={({ isActive }) =>
-                `group relative overflow-hidden rounded-lg border px-3.5 py-3.5 transition duration-300 ${
+                `group relative overflow-hidden rounded-lg border px-2.5 py-2.5 transition duration-300 lg:px-3.5 lg:py-3.5 ${
                   isActive
                     ? "border-[#F0B35B]/40 bg-white text-[#21130C] shadow-xl shadow-[#F0B35B]/15"
                     : "border-white/10 bg-white/[0.06] text-[#F7E8D4] hover:-translate-y-0.5 hover:border-white/25 hover:bg-white/[0.11]"
@@ -98,21 +95,21 @@ export default function AdminSidebar() {
               }
             >
               {({ isActive }) => (
-                <div className="relative flex items-center gap-3">
+                <div className="relative flex items-center gap-2 lg:gap-3">
                   <span
-                    className={`flex h-11 w-11 items-center justify-center rounded-lg bg-gradient-to-br ${accent} shadow-lg shadow-black/20 ${
+                    className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br ${accent} shadow-lg shadow-black/20 lg:h-11 lg:w-11 ${
                       isActive ? "text-[#21130C]" : "text-white"
                     }`}
                   >
-                    <Icon size={20} />
+                    <Icon size={18} />
                   </span>
 
                   <span className="min-w-0 flex-1">
-                    <span className="block text-sm font-extrabold">
+                    <span className="block truncate text-xs font-extrabold sm:text-sm">
                       {label}
                     </span>
                     <span
-                      className={`mt-0.5 block text-xs font-semibold ${
+                      className={`mt-0.5 hidden text-xs font-semibold lg:block ${
                         isActive ? "text-[#7E6041]" : "text-[#CBB9A6]"
                       }`}
                     >
@@ -122,7 +119,7 @@ export default function AdminSidebar() {
 
                   <ChevronRight
                     size={18}
-                    className={`transition ${
+                    className={`hidden transition lg:block ${
                       isActive
                         ? "translate-x-0 text-[#B8752F]"
                         : "text-[#9B8673] group-hover:translate-x-1 group-hover:text-white"
@@ -134,9 +131,9 @@ export default function AdminSidebar() {
           ))}
         </nav>
 
-        <div className="mt-auto rounded-lg border border-[#F0B35B]/20 bg-[#F0B35B]/10 p-4">
+        <div className="mt-auto hidden rounded-lg border border-[#F0B35B]/20 bg-[#F0B35B]/10 p-4 lg:block">
           <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#F0B35B]">
-            CanteenHub
+            Nouriq
           </p>
           <p className="mt-2 text-sm font-semibold leading-6 text-[#F7E8D4]">
             Control orders, food items, and pickup spots from one polished

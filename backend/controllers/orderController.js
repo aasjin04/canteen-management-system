@@ -171,8 +171,9 @@ const deleteOrder = async (req, res) => {
       });
     }
 
-    const isOwner = order.userId.toString() === req.user._id.toString();
     const isAdmin = req.user.role === "admin";
+    const isOwner =
+      order.userId && order.userId.toString() === req.user._id.toString();
 
     if (!isOwner && !isAdmin) {
       return res.status(403).json({

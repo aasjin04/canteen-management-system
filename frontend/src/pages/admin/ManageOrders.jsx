@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { toast } from "react-toastify";
 import {
   BadgeCheck,
   CheckCircle2,
@@ -131,7 +132,7 @@ export default function ManageOrders() {
       await deleteOrder(orderId);
     } catch (error) {
       console.log(error);
-      alert("Could not delete this order history right now.");
+      toast.error("Could not delete this order history right now.");
     } finally {
       setDeletingOrderId("");
     }
@@ -139,8 +140,8 @@ export default function ManageOrders() {
 
   return (
     <AdminLayout>
-      <div className="-m-6 min-h-screen bg-[#FBF6EF] p-6">
-        <section className="overflow-hidden rounded-lg bg-[linear-gradient(135deg,#20130D_0%,#3B2416_55%,#8B4A24_100%)] p-6 text-white shadow-2xl shadow-[#3B2416]/20">
+      <div className="-m-3 min-h-screen bg-[#FBF6EF] p-3 sm:-m-4 sm:p-4 lg:-m-6 lg:p-6">
+        <section className="overflow-hidden rounded-lg bg-[linear-gradient(135deg,#20130D_0%,#3B2416_55%,#8B4A24_100%)] p-4 text-white shadow-2xl shadow-[#3B2416]/20 sm:p-5 lg:p-6">
           <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
             <div>
               <p className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3 py-1.5 text-xs font-extrabold uppercase tracking-[0.18em] text-[#F6D49E]">
@@ -148,8 +149,7 @@ export default function ManageOrders() {
                 Order Control
               </p>
               <h1
-                className="mt-5 text-4xl font-semibold leading-tight md:text-5xl"
-                style={{ fontFamily: '"Playfair Display", Georgia, serif' }}
+                className="mt-4 text-3xl font-semibold leading-tight sm:text-4xl md:text-5xl"
               >
                 Manage Orders
               </h1>
@@ -159,14 +159,14 @@ export default function ManageOrders() {
               </p>
             </div>
 
-            <div className="grid grid-cols-2 gap-3 rounded-lg border border-white/15 bg-white/10 p-4 backdrop-blur">
-              <div className="min-w-36">
+            <div className="grid gap-3 rounded-lg border border-white/15 bg-white/10 p-3 backdrop-blur sm:grid-cols-2 sm:p-4">
+              <div className="min-w-0">
                 <p className="text-xs font-bold uppercase tracking-wider text-[#F0B35B]">
                   Active
                 </p>
                 <p className="mt-2 text-3xl font-black">{activeOrders}</p>
               </div>
-              <div className="min-w-36">
+              <div className="min-w-0">
                 <p className="text-xs font-bold uppercase tracking-wider text-[#F0B35B]">
                   Revenue
                 </p>
@@ -178,19 +178,19 @@ export default function ManageOrders() {
           </div>
         </section>
 
-        <section className="mt-6 rounded-lg border border-[#E8DCCF] bg-white p-5 shadow-sm shadow-[#3B2416]/5">
-          <div className="mb-5 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+        <section className="mt-4 rounded-lg border border-[#E8DCCF] bg-white p-3 shadow-sm shadow-[#3B2416]/5 sm:p-4 lg:mt-6 lg:p-5">
+          <div className="mb-4 flex flex-col gap-4 lg:mb-5 lg:flex-row lg:items-center lg:justify-between">
             <div>
               <p className="inline-flex items-center gap-2 text-xs font-extrabold uppercase tracking-[0.16em] text-[#B8752F]">
                 <Filter size={14} />
                 Filters
               </p>
-              <h2 className="mt-1 text-2xl font-black text-[#20130D]">
+              <h2 className="mt-1 text-xl font-black text-[#20130D] sm:text-2xl">
                 Kitchen Queue
               </h2>
             </div>
 
-            <div className="flex flex-wrap gap-2">
+            <div className="-mx-1 flex gap-2 overflow-x-auto px-1 pb-1 lg:flex-wrap lg:overflow-visible">
               {filters.map((status) => {
                 const count =
                   status === "All"
@@ -202,7 +202,7 @@ export default function ManageOrders() {
                     type="button"
                     key={status}
                     onClick={() => setFilter(status)}
-                    className={`rounded-lg border px-4 py-2 text-sm font-extrabold transition ${
+                    className={`shrink-0 rounded-lg border px-3 py-2 text-sm font-extrabold transition sm:px-4 ${
                       filter === status
                         ? "border-[#20130D] bg-[#20130D] text-white shadow-lg shadow-[#20130D]/15"
                         : "border-[#E2D2C0] bg-[#FBF6EF] text-[#5B4638] hover:border-[#B8752F] hover:text-[#B8752F]"
@@ -229,7 +229,7 @@ export default function ManageOrders() {
               </p>
             </div>
           ) : (
-            <div className="grid gap-4 xl:grid-cols-2">
+            <div className="grid gap-3 lg:gap-4 xl:grid-cols-2">
               {filteredOrders.map((order, orderIndex) => {
                 const orderItems = order.items || [];
                 const customerName = getCustomerName(order);
@@ -237,14 +237,14 @@ export default function ManageOrders() {
                 return (
                   <article
                     key={order._id || order.id || orderIndex}
-                    className="rounded-lg border border-[#E8DCCF] bg-[#FBF6EF] p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-[#B8752F] hover:shadow-lg hover:shadow-[#3B2416]/10"
+                    className="rounded-lg border border-[#E8DCCF] bg-[#FBF6EF] p-3 shadow-sm transition hover:-translate-y-0.5 hover:border-[#B8752F] hover:shadow-lg hover:shadow-[#3B2416]/10 sm:p-4 lg:p-5"
                   >
                     <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-                      <div>
+                      <div className="min-w-0">
                         <p className="text-xs font-extrabold uppercase tracking-[0.16em] text-[#B8752F]">
                           Ordered By
                         </p>
-                        <h3 className="mt-1 text-2xl font-black text-[#20130D]">
+                        <h3 className="mt-1 break-words text-xl font-black text-[#20130D] sm:text-2xl">
                           {customerName}
                         </h3>
                         <p className="mt-1 text-xs font-bold uppercase tracking-wider text-[#8A7A6C]">
@@ -254,7 +254,7 @@ export default function ManageOrders() {
                       <StatusChip status={order.status} />
                     </div>
 
-                    <div className="mt-5 grid gap-3 sm:grid-cols-2">
+                    <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:mt-5">
                       <div className="rounded-lg border border-[#E8DCCF] bg-white p-3">
                         <p className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#8A7A6C]">
                           <MapPin size={14} />
@@ -275,7 +275,7 @@ export default function ManageOrders() {
                       </div>
                     </div>
 
-                    <div className="mt-5">
+                    <div className="mt-4 lg:mt-5">
                       <p className="mb-3 text-sm font-extrabold text-[#20130D]">
                         Items
                       </p>
@@ -288,7 +288,7 @@ export default function ManageOrders() {
                           orderItems.map((item, itemIndex) => (
                             <div
                               key={item._id || item.id || `${item.name}-${itemIndex}`}
-                              className="flex items-center justify-between rounded-lg border border-[#E8DCCF] bg-white px-3 py-2"
+                              className="flex flex-col gap-1 rounded-lg border border-[#E8DCCF] bg-white px-3 py-2 sm:flex-row sm:items-center sm:justify-between"
                             >
                               <span className="font-semibold text-[#20130D]">
                                 {item.name}
@@ -302,15 +302,15 @@ export default function ManageOrders() {
                       </div>
                     </div>
 
-                    <div className="mt-5 border-t border-[#E8DCCF] pt-4">
+                    <div className="mt-4 border-t border-[#E8DCCF] pt-4 lg:mt-5">
                       {order.status === "Pending" ? (
-                        <div className="flex flex-wrap gap-2">
+                        <div className="grid gap-2 sm:flex sm:flex-wrap">
                           <button
                             type="button"
                             onClick={() =>
                               updateOrderStatus(order._id, "Accepted")
                             }
-                            className="inline-flex items-center gap-2 rounded-lg bg-[#24784A] px-4 py-2 text-sm font-extrabold text-white shadow-sm transition hover:bg-[#1D603B]"
+                            className="inline-flex items-center justify-center gap-2 rounded-lg bg-[#24784A] px-4 py-2 text-sm font-extrabold text-white shadow-sm transition hover:bg-[#1D603B]"
                           >
                             <BadgeCheck size={16} />
                             Accept Order
@@ -321,7 +321,7 @@ export default function ManageOrders() {
                             onClick={() =>
                               updateOrderStatus(order._id, "Rejected")
                             }
-                            className="inline-flex items-center gap-2 rounded-lg bg-[#B83224] px-4 py-2 text-sm font-extrabold text-white shadow-sm transition hover:bg-[#94281D]"
+                            className="inline-flex items-center justify-center gap-2 rounded-lg bg-[#B83224] px-4 py-2 text-sm font-extrabold text-white shadow-sm transition hover:bg-[#94281D]"
                           >
                             <XCircle size={16} />
                             Reject Order
@@ -332,7 +332,7 @@ export default function ManageOrders() {
                           This order was {order.status.toLowerCase()}.
                         </p>
                       ) : (
-                        <div className="flex flex-wrap gap-2">
+                        <div className="grid gap-2 sm:flex sm:flex-wrap">
                           {["Preparing", "Ready", "Delivered"].map((status) => {
                             const meta = statusMeta[status];
                             const isCurrent = order.status === status;
@@ -362,7 +362,7 @@ export default function ManageOrders() {
                           type="button"
                           onClick={() => handleDeleteOrderHistory(order._id)}
                           disabled={deletingOrderId === order._id}
-                          className="inline-flex items-center gap-2 rounded-lg border border-[#F1C6BC] bg-[#FFF3F0] px-4 py-2 text-sm font-extrabold text-[#B83224] transition hover:bg-[#FFE4DE] disabled:cursor-not-allowed disabled:opacity-60"
+                          className="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-[#F1C6BC] bg-[#FFF3F0] px-4 py-2 text-sm font-extrabold text-[#B83224] transition hover:bg-[#FFE4DE] disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
                         >
                           <Trash2 size={16} />
                           {deletingOrderId === order._id

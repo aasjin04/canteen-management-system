@@ -24,23 +24,33 @@ function NavItem({
   primary = false,
   active = false,
   onClick,
+  layoutId = "nav-active-pill",
 }) {
   return (
     <Link
       to={to}
       onClick={onClick}
-      className={`relative inline-flex items-center gap-2 rounded-lg px-3.5 py-2 text-sm font-bold transition ${
+      className={`relative inline-flex items-center gap-2 overflow-hidden rounded-lg px-3.5 py-2 text-sm font-bold transition ${
         primary
           ? "bg-[#3B2416] text-white shadow-sm hover:bg-[#4A2D1C]"
           : active
-            ? "bg-[#FFF3E4] text-[#9A5B22]"
+            ? "text-[#9A5B22]"
             : "text-[#5B4638] hover:bg-[#FFF7EF] hover:text-[#9A5B22]"
       }`}
     >
-      <Icon size={17} />
-      {label}
+      {!primary && active && (
+        <motion.span
+          layoutId={layoutId}
+          className="absolute inset-0 rounded-lg bg-[#FFF3E4]"
+          transition={{ type: "spring", stiffness: 420, damping: 34 }}
+        />
+      )}
+      <span className="relative z-10 inline-flex items-center gap-2">
+        <Icon size={17} />
+        {label}
+      </span>
       {badge > 0 && (
-        <span className="absolute -right-2 -top-2 flex h-5 min-w-5 items-center justify-center rounded-full bg-[#D95D39] px-1.5 text-[11px] font-extrabold text-white shadow-sm">
+        <span className="absolute -right-2 -top-2 z-20 flex h-5 min-w-5 items-center justify-center rounded-full bg-[#D95D39] px-1.5 text-[11px] font-extrabold text-white shadow-sm">
           {badge}
         </span>
       )}
@@ -76,14 +86,16 @@ export default function Navbar() {
     { to: "/orders", label: "Orders", Icon: ClipboardList },
   ];
 
-  const authLinks = [
+  const guestLinks = [
     { to: "/", label: "Home", Icon: Home },
+    { to: "/menu", label: "Menu", Icon: UtensilsCrossed },
+    { to: "/cart", label: "Cart", Icon: ShoppingCart, badge: cartCount },
     { to: "/login", label: "Login", Icon: LogIn },
     { to: "/register", label: "Register", Icon: UserPlus, primary: true },
   ];
 
   const navLinks =
-    user?.role === "student" ? studentLinks : user ? [] : authLinks;
+    user?.role === "student" ? studentLinks : user ? [] : guestLinks;
 
   return (
     <nav className="relative z-50 border-b border-[#E8DCCF] bg-white/95 shadow-sm shadow-[#3B2416]/5 backdrop-blur-xl">
@@ -92,17 +104,18 @@ export default function Navbar() {
           <Link to="/" onClick={closeMenu} className="flex items-center gap-3">
             <motion.div
               whileHover={{ scale: 1.04 }}
-              className="flex h-11 w-11 items-center justify-center rounded-lg bg-[#3B2416] text-[#D79A4B] shadow-md shadow-[#3B2416]/15"
+              className="flex h-11 w-11 items-center justify-center rounded-lg bg-[#20130D] text-sm font-black tracking-tight text-[#F0B35B] shadow-md shadow-[#3B2416]/15"
             >
-              <UtensilsCrossed size={23} />
+              NQ
             </motion.div>
 
             <div className="leading-tight">
               <h1 className="text-xl font-extrabold text-[#20130D]">
-                CanteenHub
+                Nouriq
               </h1>
               <p className="text-[11px] font-semibold uppercase tracking-wide text-[#8A7A6C]">
-                Smart Campus Ordering
+                Campus Dining 
+                
               </p>
             </div>
           </Link>
@@ -114,6 +127,7 @@ export default function Navbar() {
                 {...link}
                 active={isActive(link.to)}
                 onClick={closeMenu}
+                layoutId="desktop-nav-active-pill"
               />
             ))}
 
@@ -125,6 +139,7 @@ export default function Navbar() {
                 primary
                 active={isActive("/admin/dashboard")}
                 onClick={closeMenu}
+                layoutId="desktop-nav-active-pill"
               />
             )}
           </div>
@@ -175,6 +190,7 @@ export default function Navbar() {
                   {...link}
                   active={isActive(link.to)}
                   onClick={closeMenu}
+                  layoutId="mobile-nav-active-pill"
                 />
               ))}
 
@@ -186,6 +202,7 @@ export default function Navbar() {
                   primary
                   active={isActive("/admin/dashboard")}
                   onClick={closeMenu}
+                  layoutId="mobile-nav-active-pill"
                 />
               )}
             </div>

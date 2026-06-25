@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { toast } from "react-toastify";
 import {
   MapPinned,
   Navigation,
@@ -21,7 +22,7 @@ export default function ManageSpots() {
 
   const handleAddSpot = () => {
     if (!spotName.trim()) {
-      alert("Enter spot name");
+      toast.error("Enter spot name");
       return;
     }
 
@@ -31,7 +32,7 @@ export default function ManageSpots() {
 
   return (
     <AdminLayout>
-      <div className="-m-6 min-h-screen bg-[#FBF6EF] p-6">
+      <div className="-m-3 min-h-screen bg-[#FBF6EF] p-3 sm:-m-4 sm:p-4 lg:-m-6 lg:p-6">
         <section className="overflow-hidden rounded-lg bg-[linear-gradient(135deg,#20130D_0%,#3B2416_58%,#9A5B22_100%)] p-6 text-white shadow-2xl shadow-[#3B2416]/20">
           <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
             <div>
@@ -41,7 +42,6 @@ export default function ManageSpots() {
               </p>
               <h1
                 className="mt-5 text-4xl font-semibold leading-tight md:text-5xl"
-                style={{ fontFamily: '"Playfair Display", Georgia, serif' }}
               >
                 Manage Spots
               </h1>

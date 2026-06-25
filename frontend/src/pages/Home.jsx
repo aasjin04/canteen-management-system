@@ -109,7 +109,6 @@ export default function Home() {
               <motion.h1
                 variants={fadeUp}
                 className="text-5xl font-semibold leading-none sm:text-6xl lg:text-7xl"
-                style={{ fontFamily: '"Playfair Display", Georgia, serif' }}
               >
                 Fresh food, ready around your day.
               </motion.h1>
@@ -233,7 +232,6 @@ export default function Home() {
             </p>
             <h2
               className="mt-2 text-4xl font-semibold text-[#241713]"
-              style={{ fontFamily: '"Playfair Display", Georgia, serif' }}
             >
               Trending on campus
             </h2>
@@ -282,7 +280,6 @@ export default function Home() {
                 <div className="p-5">
                   <h3
                     className="text-2xl font-semibold text-[#241713]"
-                    style={{ fontFamily: '"Playfair Display", Georgia, serif' }}
                   >
                     {food.name}
                   </h3>
@@ -303,7 +300,6 @@ export default function Home() {
             <UtensilsCrossed size={38} className="mx-auto text-[#D95D39]" />
             <h3
               className="mt-4 text-2xl font-semibold text-[#241713]"
-              style={{ fontFamily: '"Playfair Display", Georgia, serif' }}
             >
               No featured dishes yet
             </h3>
@@ -328,7 +324,6 @@ export default function Home() {
               </p>
               <h2
                 className="mt-2 text-4xl font-semibold text-[#241713]"
-                style={{ fontFamily: '"Playfair Display", Georgia, serif' }}
               >
                 Built for the campus rhythm
               </h2>
@@ -369,7 +364,6 @@ export default function Home() {
             </p>
             <h2
               className="mt-2 text-4xl font-semibold text-[#241713]"
-              style={{ fontFamily: '"Playfair Display", Georgia, serif' }}
             >
               Three steps, no counter chaos
             </h2>
@@ -408,7 +402,6 @@ export default function Home() {
         >
           <h3
             className="text-3xl font-semibold md:text-4xl"
-            style={{ fontFamily: '"Playfair Display", Georgia, serif' }}
           >
             Ready for your next order?
           </h3>

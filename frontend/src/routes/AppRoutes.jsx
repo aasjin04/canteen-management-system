@@ -44,21 +44,13 @@ export default function AppRoutes() {
 
       <Route
         path="/menu"
-        element={
-          <ProtectedRoute>
-            <Menu />
-          </ProtectedRoute>
-        }
+        element={<Menu />}
       />
 
 
       <Route
         path="/cart"
-        element={
-          <ProtectedRoute>
-            <Cart />
-          </ProtectedRoute>
-        }
+        element={<Cart />}
       />
 
 

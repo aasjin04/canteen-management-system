@@ -3,6 +3,8 @@ import AppRoutes from "./routes/AppRoutes";
 import { useLocation } from "react-router-dom";
 import { CheckCircle2, ShoppingCart } from "lucide-react";
 import { useCart } from "./context/CartContext";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   const location = useLocation();
@@ -13,6 +15,16 @@ function App() {
     <>
       {!hideNavbar && <Navbar />}
       <AppRoutes />
+      <ToastContainer
+        position="bottom-center"
+        autoClose={2400}
+        hideProgressBar
+        newestOnTop
+        closeOnClick
+        pauseOnHover
+        theme="colored"
+        toastClassName="!rounded-lg !font-semibold"
+      />
 
       {cartNotice && (
         <div className="fixed inset-x-0 bottom-5 z-[70] flex justify-center px-4">

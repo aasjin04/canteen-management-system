@@ -9,7 +9,6 @@ import {
   Mail,
   ShieldCheck,
   Sparkles,
-  UtensilsCrossed,
 } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
 
@@ -48,11 +47,11 @@ export default function Login() {
       <div className="grid min-h-dvh lg:grid-cols-2">
         <section className="hidden bg-[#3B2416] px-8 py-10 text-white lg:flex lg:flex-col lg:justify-between xl:px-12">
           <div className="flex items-center gap-3">
-            <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-[#D79A4B] text-[#3B2416]">
-              <UtensilsCrossed size={23} />
+            <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-[#D79A4B] text-sm font-black tracking-tight text-[#3B2416]">
+              NQ
             </div>
             <div>
-              <h1 className="text-xl font-extrabold">CanteenHub</h1>
+              <h1 className="text-xl font-extrabold">Nouriq</h1>
               <p className="text-sm text-white/60">Smart campus ordering</p>
             </div>
           </div>
@@ -65,7 +64,6 @@ export default function Login() {
 
             <h2
               className="text-5xl font-semibold leading-tight"
-              style={{ fontFamily: '"Playfair Display", Georgia, serif' }}
             >
               Sign in and keep every order moving.
             </h2>
@@ -106,10 +104,10 @@ export default function Login() {
             <div className="mb-8 lg:hidden">
               <div className="flex items-center gap-3">
                 <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-[#3B2416] text-[#D79A4B]">
-                  <UtensilsCrossed size={23} />
+                  <span className="text-sm font-black tracking-tight">NQ</span>
                 </div>
                 <div>
-                  <h1 className="text-xl font-extrabold">CanteenHub</h1>
+                  <h1 className="text-xl font-extrabold">Nouriq</h1>
                   <p className="text-sm text-[#667085]">
                     Smart campus ordering
                   </p>
@@ -125,7 +123,6 @@ export default function Login() {
 
                 <h2
                   className="text-3xl font-semibold text-[#101828]"
-                  style={{ fontFamily: '"Playfair Display", Georgia, serif' }}
                 >
                   Welcome back
                 </h2>
@@ -193,7 +190,7 @@ export default function Login() {
               </form>
 
               <p className="mt-6 text-center text-sm text-[#667085]">
-                New to CanteenHub?{" "}
+                New to Nouriq?{" "}
                 <Link
                   to="/register"
                   className="font-bold text-[#3B2416] hover:text-[#9A5B22]"

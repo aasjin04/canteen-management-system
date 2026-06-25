@@ -1,7 +1,10 @@
 import { useState } from "react";
+import { toast } from "react-toastify";
 import {
+  Check,
   ImageIcon,
   IndianRupee,
+  Pencil,
   Plus,
   Search,
   Sparkles,
@@ -9,6 +12,7 @@ import {
   ToggleRight,
   Trash2,
   UtensilsCrossed,
+  X,
 } from "lucide-react";
 import AdminLayout from "../../layouts/AdminLayout";
 import { useFoods } from "../../context/FoodContext";
@@ -28,6 +32,8 @@ export default function ManageFoods() {
   const [image, setImage] = useState("");
   const [featured, setFeatured] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
+  const [editingPriceId, setEditingPriceId] = useState("");
+  const [draftPrice, setDraftPrice] = useState("");
 
   const filteredFoods = foods.filter((food) =>
     food.name?.toLowerCase().includes(searchTerm.toLowerCase())
@@ -37,7 +43,7 @@ export default function ManageFoods() {
 
   const handleAddFood = () => {
     if (!name.trim() || !price || !image.trim()) {
-      alert("Fill all fields");
+      toast.error("Fill all fields");
       return;
     }
 
@@ -60,9 +66,31 @@ export default function ManageFoods() {
     });
   };
 
+  const startEditingPrice = (food) => {
+    setEditingPriceId(food._id);
+    setDraftPrice(String(food.price || ""));
+  };
+
+  const cancelEditingPrice = () => {
+    setEditingPriceId("");
+    setDraftPrice("");
+  };
+
+  const handleSavePrice = (food) => {
+    if (!draftPrice || Number(draftPrice) <= 0) {
+      toast.error("Enter a valid price");
+      return;
+    }
+
+    updateFood(food._id, {
+      price: Number(draftPrice),
+    });
+    cancelEditingPrice();
+  };
+
   return (
     <AdminLayout>
-      <div className="-m-6 min-h-screen bg-[#FBF6EF] p-6">
+      <div className="-m-3 min-h-screen bg-[#FBF6EF] p-3 sm:-m-4 sm:p-4 lg:-m-6 lg:p-6">
         <section className="overflow-hidden rounded-lg bg-[linear-gradient(135deg,#20130D_0%,#3B2416_58%,#9A5B22_100%)] p-6 text-white shadow-2xl shadow-[#3B2416]/20">
           <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
             <div>
@@ -72,7 +100,6 @@ export default function ManageFoods() {
               </p>
               <h1
                 className="mt-5 text-4xl font-semibold leading-tight md:text-5xl"
-                style={{ fontFamily: '"Playfair Display", Georgia, serif' }}
               >
                 Manage Foods
               </h1>
@@ -248,9 +275,44 @@ export default function ManageFoods() {
                             <h3 className="truncate text-lg font-black text-[#20130D]">
                               {food.name}
                             </h3>
-                            <p className="mt-1 font-extrabold text-[#2F7D59]">
-                              {formatCurrency(food.price)}
-                            </p>
+                            {editingPriceId === food._id ? (
+                              <div className="mt-2 flex flex-wrap items-center gap-2">
+                                <div className="flex max-w-32 items-center rounded-lg border border-[#E2D2C0] bg-white px-2">
+                                  <IndianRupee
+                                    size={15}
+                                    className="text-[#B8752F]"
+                                  />
+                                  <input
+                                    type="number"
+                                    value={draftPrice}
+                                    onChange={(event) =>
+                                      setDraftPrice(event.target.value)
+                                    }
+                                    className="min-w-0 flex-1 bg-transparent px-2 py-2 text-sm font-extrabold text-[#20130D] outline-none"
+                                  />
+                                </div>
+                                <button
+                                  type="button"
+                                  onClick={() => handleSavePrice(food)}
+                                  className="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-[#24784A] text-white"
+                                  aria-label={`Save ${food.name} price`}
+                                >
+                                  <Check size={16} />
+                                </button>
+                                <button
+                                  type="button"
+                                  onClick={cancelEditingPrice}
+                                  className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-[#E8DCCF] bg-white text-[#756657]"
+                                  aria-label="Cancel price edit"
+                                >
+                                  <X size={16} />
+                                </button>
+                              </div>
+                            ) : (
+                              <p className="mt-1 font-extrabold text-[#2F7D59]">
+                                {formatCurrency(food.price)}
+                              </p>
+                            )}
                           </div>
 
                           {food.featured && (
@@ -279,6 +341,15 @@ export default function ManageFoods() {
                             {food.featured
                               ? "Remove from Home"
                               : "Show on Home"}
+                          </button>
+
+                          <button
+                            type="button"
+                            onClick={() => startEditingPrice(food)}
+                            className="inline-flex items-center gap-2 rounded-lg border border-[#D6DDE8] bg-white px-3 py-2 text-sm font-extrabold text-[#4F647A] transition hover:bg-[#EEF4FB]"
+                          >
+                            <Pencil size={16} />
+                            Edit Price
                           </button>
 
                           <button

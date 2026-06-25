@@ -11,7 +11,6 @@ import {
   ShieldCheck,
   Sparkles,
   UserRound,
-  UtensilsCrossed,
 } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
 
@@ -75,10 +74,10 @@ export default function Register() {
             <div className="mb-8 lg:hidden">
               <div className="flex items-center gap-3">
                 <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-[#3B2416] text-[#D79A4B]">
-                  <UtensilsCrossed size={23} />
+                  <span className="text-sm font-black tracking-tight">NQ</span>
                 </div>
                 <div>
-                  <h1 className="text-xl font-extrabold">CanteenHub</h1>
+                  <h1 className="text-xl font-extrabold">Nouriq</h1>
                   <p className="text-sm text-[#667085]">
                     Smart campus ordering
                   </p>
@@ -94,12 +93,11 @@ export default function Register() {
 
                 <h2
                   className="text-3xl font-semibold text-[#101828]"
-                  style={{ fontFamily: '"Playfair Display", Georgia, serif' }}
                 >
                   Create your account
                 </h2>
                 <p className="mt-2 text-[#667085]">
-                  Join CanteenHub and start ordering ahead on campus.
+                  Join Nouriq and start ordering ahead on campus.
                 </p>
               </div>
 
@@ -209,11 +207,11 @@ export default function Register() {
 
         <section className="hidden bg-[#3B2416] px-8 py-10 text-white lg:flex lg:flex-col lg:justify-between xl:px-12">
           <div className="flex items-center gap-3">
-            <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-[#D79A4B] text-[#3B2416]">
-              <UtensilsCrossed size={23} />
+            <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-[#D79A4B] text-sm font-black tracking-tight text-[#3B2416]">
+              NQ
             </div>
             <div>
-              <h1 className="text-xl font-extrabold">CanteenHub</h1>
+              <h1 className="text-xl font-extrabold">Nouriq</h1>
               <p className="text-sm text-white/60">Smart campus ordering</p>
             </div>
           </div>
@@ -221,12 +219,11 @@ export default function Register() {
           <div className="max-w-xl">
             <div className="mb-5 inline-flex items-center gap-2 rounded-md border border-white/15 bg-white/10 px-3 py-2 text-sm font-semibold text-[#D79A4B]">
               <Sparkles size={16} />
-              SaaS-grade campus ordering
+              Campus dining workspace
             </div>
 
             <h2
               className="text-5xl font-semibold leading-tight"
-              style={{ fontFamily: '"Playfair Display", Georgia, serif' }}
             >
               Start ordering ahead in minutes.
             </h2>

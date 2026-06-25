@@ -21,23 +21,6 @@ const formatCurrency = (value) =>
     maximumFractionDigits: 0,
   }).format(Number(value || 0));
 
-const statusStyles = {
-  Pending: "bg-[#FFF5D8] text-[#9A650D] border-[#F2D486]",
-  Accepted: "bg-[#EEF9F2] text-[#24784A] border-[#BDE4CB]",
-  Preparing: "bg-[#FFF0E8] text-[#B84E25] border-[#F0B895]",
-  Ready: "bg-[#EAF8EF] text-[#28764B] border-[#A7DDB8]",
-  Delivered: "bg-[#EAF1FF] text-[#315CA8] border-[#B8CDF7]",
-  Completed: "bg-[#EAF1FF] text-[#315CA8] border-[#B8CDF7]",
-  Rejected: "bg-[#FFF3F0] text-[#B83224] border-[#F1C6BC]",
-  Cancelled: "bg-[#FFF3F0] text-[#B83224] border-[#F1C6BC]",
-};
-
-const getCustomerName = (order) =>
-  order.userName || order.user?.name || order.customerName || "Customer";
-
-const getShortOrderRef = (order, index) =>
-  String(order.id || order._id || index + 1).slice(-6).toUpperCase();
-
 function StatCard({ title, value, detail, Icon, accent, dark = false }) {
   return (
     <article
@@ -139,17 +122,14 @@ export default function Dashboard() {
   const averageOrderValue =
     deliveredOrders.length > 0 ? totalRevenue / deliveredOrders.length : 0;
 
-  const recentOrders = orders.slice(0, 4);
-
   return (
     <AdminLayout>
-      <div className="-m-6 min-h-screen bg-[#FBF6EF] p-6">
+      <div className="-m-3 min-h-screen bg-[#FBF6EF] p-3 sm:-m-4 sm:p-4 lg:-m-6 lg:p-6">
         <section className="overflow-hidden rounded-lg bg-[linear-gradient(135deg,#20130D_0%,#3B2416_52%,#8B4A24_100%)] p-6 text-white shadow-2xl shadow-[#3B2416]/20">
           <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
             <div>
               <h1
                 className="mt-5 text-4xl font-semibold leading-tight md:text-5xl"
-                style={{ fontFamily: '"Playfair Display", Georgia, serif' }}
               >
                 Dashboard
               </h1>
@@ -210,8 +190,8 @@ export default function Dashboard() {
           />
         </section>
 
-        <section className="mt-6 grid gap-6 xl:grid-cols-[1.1fr_0.9fr]">
-          <div className="rounded-lg border border-[#E8DCCF] bg-white p-5 shadow-sm shadow-[#3B2416]/5">
+        <section className="mt-6">
+          <div className="rounded-lg border border-[#E8DCCF] bg-white p-4 shadow-sm shadow-[#3B2416]/5 sm:p-5">
             <div className="mb-5 flex items-center justify-between gap-4">
               <div>
                 <p className="text-xs font-extrabold uppercase tracking-[0.16em] text-[#B8752F]">
@@ -224,7 +204,7 @@ export default function Dashboard() {
               <ArrowUpRight className="text-[#B8752F]" size={24} />
             </div>
 
-            <div className="grid gap-4 md:grid-cols-2">
+            <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
               <PipelineStep
                 label="Pending"
                 value={pendingOrders.length}
@@ -275,66 +255,6 @@ export default function Dashboard() {
                 color="bg-[#FFF3F0] text-[#B83224]"
               />
             </div>
-          </div>
-
-          <div className="rounded-lg border border-[#E8DCCF] bg-white p-5 shadow-sm shadow-[#3B2416]/5">
-            <div className="mb-5">
-              <p className="text-xs font-extrabold uppercase tracking-[0.16em] text-[#B8752F]">
-                Latest Activity
-              </p>
-              <h2 className="mt-1 text-2xl font-black text-[#20130D]">
-                Recent Orders
-              </h2>
-            </div>
-
-            {recentOrders.length === 0 ? (
-              <div className="rounded-lg border border-dashed border-[#D9C6B2] bg-[#FBF6EF] p-6 text-center">
-                <p className="font-extrabold text-[#20130D]">No orders yet</p>
-                <p className="mt-2 text-sm font-semibold text-[#756657]">
-                  New orders will appear here as customers place them.
-                </p>
-              </div>
-            ) : (
-              <div className="space-y-3">
-                {recentOrders.map((order, index) => (
-                  <article
-                    key={order._id || order.id || index}
-                    className="rounded-lg border border-[#E8DCCF] bg-[#FBF6EF] p-4"
-                  >
-                    <div className="flex items-start justify-between gap-3">
-                      <div>
-                        <p className="text-sm font-black text-[#20130D]">
-                          {getCustomerName(order)}
-                        </p>
-                        <p className="mt-1 text-xs font-bold uppercase tracking-wider text-[#8A7A6C]">
-                          Ref {getShortOrderRef(order, index)}
-                        </p>
-                        <p className="mt-1 text-xs font-semibold text-[#756657]">
-                          Pickup: {order.pickupSpot || "Not assigned"}
-                        </p>
-                      </div>
-                      <span
-                        className={`rounded-full border px-2.5 py-1 text-xs font-extrabold ${
-                          statusStyles[order.status] ||
-                          "border-[#D9C6B2] bg-white text-[#756657]"
-                        }`}
-                      >
-                        {order.status || "Pending"}
-                      </span>
-                    </div>
-
-                    <div className="mt-3 flex items-center justify-between border-t border-[#E8DCCF] pt-3">
-                      <p className="text-xs font-semibold text-[#756657]">
-                        {order.items?.length || 0} items
-                      </p>
-                      <p className="font-black text-[#2F7D59]">
-                        {formatCurrency(order.total)}
-                      </p>
-                    </div>
-                  </article>
-                ))}
-              </div>
-            )}
           </div>
         </section>
       </div>
