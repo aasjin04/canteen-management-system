@@ -147,49 +147,49 @@ export default function Cart() {
   return (
     <main className="min-h-screen bg-[#F7F1E8] text-[#201A16]">
       <section className="border-b border-[#DDD0C1] bg-[#16120F] text-white">
-        <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl px-4 py-7 sm:px-6 sm:py-10 lg:px-8">
           <Link
             to="/"
-            className="mb-8 inline-flex w-fit items-center gap-2 rounded-md border border-white/15 bg-white/10 px-3 py-2 text-sm font-bold text-[#E9C48E] transition hover:bg-white/15"
+            className="mb-5 inline-flex w-fit items-center gap-2 rounded-md border border-white/15 bg-white/10 px-3 py-2 text-sm font-bold text-[#E9C48E] transition hover:bg-white/15"
           >
             <ArrowLeft size={16} />
             Back to Home
           </Link>
 
-          <div className="grid gap-8 lg:grid-cols-[1fr_360px] lg:items-end">
+          <div className="grid gap-5 lg:grid-cols-[1fr_320px] lg:items-end">
             <div>
-              <div className="mb-5 inline-flex items-center gap-2 rounded-md border border-white/15 bg-white/10 px-3 py-2 text-sm font-semibold text-[#E9C48E]">
+              <div className="mb-4 inline-flex items-center gap-2 rounded-md border border-white/15 bg-white/10 px-3 py-1.5 text-xs font-semibold text-[#E9C48E] sm:text-sm">
                 <Sparkles size={16} />
                 Secure checkout
               </div>
 
               <h1
-                className="text-4xl font-semibold leading-none sm:text-5xl lg:text-6xl"
+                className="text-3xl font-semibold leading-tight sm:text-5xl lg:text-6xl"
               >
                 My Cart
               </h1>
 
-              <p className="mt-4 max-w-2xl text-base leading-7 text-[#D9CDC0] sm:text-lg">
+              <p className="mt-3 max-w-2xl text-sm leading-6 text-[#D9CDC0] sm:text-lg sm:leading-7">
                 Review your dishes, choose a pickup counter, and place a clean,
                 queue-free canteen order.
               </p>
             </div>
 
             <div className="grid grid-cols-2 gap-3">
-              <div className="rounded-lg border border-white/10 bg-white/[0.07] p-4">
+              <div className="rounded-lg border border-white/10 bg-white/[0.07] p-3 sm:p-4">
                 <div className="flex items-center justify-between gap-3">
                   <p className="text-sm font-medium text-[#C9B9A6]">Items</p>
                   <ShoppingBag size={18} className="text-[#E9C48E]" />
                 </div>
-                <p className="mt-3 text-2xl font-bold text-white">{itemCount}</p>
+                <p className="mt-2 text-xl font-bold text-white sm:text-2xl">{itemCount}</p>
               </div>
 
-              <div className="rounded-lg border border-white/10 bg-white/[0.07] p-4">
+              <div className="rounded-lg border border-white/10 bg-white/[0.07] p-3 sm:p-4">
                 <div className="flex items-center justify-between gap-3">
                   <p className="text-sm font-medium text-[#C9B9A6]">Total</p>
                   <IndianRupee size={18} className="text-[#E9C48E]" />
                 </div>
-                <p className="mt-3 text-2xl font-bold text-white">
+                <p className="mt-2 text-xl font-bold text-white sm:text-2xl">
                   {formatCurrency(total)}
                 </p>
               </div>
@@ -198,7 +198,7 @@ export default function Cart() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+      <section className="mx-auto max-w-7xl px-4 py-6 sm:px-6 sm:py-10 lg:px-8">
         {showAuthPrompt && (
           <div className="mb-6 rounded-lg border border-[#E8DCCF] bg-white p-5 shadow-lg shadow-[#3B2416]/10">
             <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
@@ -259,15 +259,15 @@ export default function Cart() {
             </div>
           </div>
         ) : (
-          <div className="grid gap-6 lg:grid-cols-[1fr_380px]">
-            <section className="space-y-4">
+          <div className="grid gap-5 lg:grid-cols-[1fr_360px]">
+            <section className="space-y-3 sm:space-y-4">
               {cartItems.map((item) => (
                 <article
                   key={item._id}
                   className="overflow-hidden rounded-lg border border-[#DDD0C1] bg-white shadow-sm transition hover:-translate-y-0.5 hover:border-[#BE8A4C] hover:shadow-xl hover:shadow-[#6A3D18]/10"
                 >
-                  <div className="grid gap-0 sm:grid-cols-[150px_1fr]">
-                    <div className="h-44 bg-[#F0E4D6] sm:h-full">
+                  <div className="grid grid-cols-[96px_1fr] gap-0 sm:grid-cols-[135px_1fr]">
+                    <div className="min-h-36 bg-[#F0E4D6] sm:min-h-40">
                       {item.image ? (
                         <img
                           src={item.image}
@@ -281,37 +281,38 @@ export default function Cart() {
                       )}
                     </div>
 
-                    <div className="p-5">
-                      <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
-                        <div>
-                          <p className="text-sm font-bold text-[#BE6F22]">
+                    <div className="min-w-0 p-3 sm:p-4">
+                      <div className="flex items-start justify-between gap-2">
+                        <div className="min-w-0">
+                          <p className="text-xs font-bold text-[#BE6F22] sm:text-sm">
                             Canteen selection
                           </p>
                           <h2
-                            className="food-display mt-1 text-2xl font-semibold text-[#201A16]"
+                            className="food-display mt-0.5 line-clamp-2 text-lg font-semibold leading-tight text-[#201A16] sm:text-2xl"
                           >
                             {item.name}
                           </h2>
-                          <p className="mt-2 flex items-center gap-1 text-lg font-extrabold text-[#8D2C2C]">
+                          <p className="mt-1 flex items-center gap-1 text-sm font-extrabold text-[#8D2C2C] sm:text-lg">
                             {formatCurrency(item.price)}
                           </p>
                         </div>
 
                         <button
                           onClick={() => removeItem(item._id)}
-                          className="inline-flex w-fit items-center gap-2 rounded-md border border-red-100 bg-red-50 px-3 py-2 text-sm font-bold text-red-600 transition hover:bg-red-100"
+                          className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-md border border-red-100 bg-red-50 text-red-600 transition hover:bg-red-100 sm:h-auto sm:w-auto sm:gap-2 sm:px-3 sm:py-2 sm:text-sm sm:font-bold"
+                          aria-label={`Remove ${item.name}`}
                         >
                           <Trash2 size={15} />
-                          Remove
+                          <span className="hidden sm:inline">Remove</span>
                         </button>
                       </div>
 
-                      <div className="mt-6 flex flex-col gap-4 border-t border-[#E6D8C7] pt-5 sm:flex-row sm:items-center sm:justify-between">
+                      <div className="mt-3 flex flex-col gap-3 border-t border-[#E6D8C7] pt-3 sm:mt-5 sm:flex-row sm:items-center sm:justify-between sm:pt-4">
                         <div>
-                          <p className="text-sm font-semibold text-[#756657]">
+                          <p className="text-xs font-semibold text-[#756657] sm:text-sm">
                             Line Total
                           </p>
-                          <p className="mt-1 text-xl font-extrabold text-[#201A16]">
+                          <p className="mt-0.5 text-base font-extrabold text-[#201A16] sm:text-xl">
                             {formatCurrency(
                               Number(item.price || 0) *
                                 Number(item.quantity || 0)
@@ -319,10 +320,10 @@ export default function Cart() {
                           </p>
                         </div>
 
-                        <div className="flex w-full items-center justify-between rounded-lg border border-[#E6D8C7] bg-[#FBF6EF] p-2 sm:w-40">
+                        <div className="flex w-full items-center justify-between rounded-lg border border-[#E6D8C7] bg-[#FBF6EF] p-1.5 sm:w-40 sm:p-2">
                           <button
                             onClick={() => decreaseQuantity(item._id)}
-                            className="flex h-10 w-10 items-center justify-center rounded-md bg-white text-[#8D2C2C] shadow-sm transition hover:bg-[#F5E9DB]"
+                            className="flex h-8 w-8 items-center justify-center rounded-md bg-white text-[#8D2C2C] shadow-sm transition hover:bg-[#F5E9DB] sm:h-10 sm:w-10"
                             aria-label={`Decrease ${item.name} quantity`}
                           >
                             <Minus size={17} />
@@ -334,7 +335,7 @@ export default function Cart() {
 
                           <button
                             onClick={() => increaseQuantity(item._id)}
-                            className="flex h-10 w-10 items-center justify-center rounded-md bg-[#201A16] text-[#E9C48E] shadow-sm transition hover:bg-[#332820]"
+                            className="flex h-8 w-8 items-center justify-center rounded-md bg-[#201A16] text-[#E9C48E] shadow-sm transition hover:bg-[#332820] sm:h-10 sm:w-10"
                             aria-label={`Increase ${item.name} quantity`}
                           >
                             <Plus size={17} />
@@ -347,31 +348,29 @@ export default function Cart() {
               ))}
             </section>
 
-            <aside className="rounded-lg border border-[#DDD0C1] bg-white p-5 shadow-sm lg:sticky lg:top-24 lg:self-start">
+            <aside className="rounded-lg border border-[#DDD0C1] bg-white p-4 shadow-sm sm:p-5 lg:sticky lg:top-24 lg:self-start">
               <div className="flex items-start justify-between gap-4">
                 <div>
                   <p className="text-sm font-bold text-[#BE6F22]">
                     Checkout Desk
                   </p>
-                  <h2
-                    className="mt-1 text-2xl font-semibold text-[#201A16]"
-                  >
+                  <h2 className="mt-1 text-xl font-semibold text-[#201A16] sm:text-2xl">
                     Order Summary
                   </h2>
                 </div>
                 <ShieldCheck size={22} className="text-[#2F7D59]" />
               </div>
 
-              <div className="mt-6 rounded-lg border border-[#E6D8C7] bg-[#FBF6EF] p-4">
+              <div className="mt-4 rounded-lg border border-[#E6D8C7] bg-[#FBF6EF] p-3 sm:mt-6 sm:p-4">
                 <p className="text-sm font-semibold text-[#756657]">
                   Total Amount
                 </p>
-                <p className="mt-2 text-3xl font-extrabold text-[#201A16]">
+                <p className="mt-1 text-2xl font-extrabold text-[#201A16] sm:mt-2 sm:text-3xl">
                   {formatCurrency(total)}
                 </p>
               </div>
 
-              <div className="mt-6">
+              <div className="mt-4 sm:mt-6">
                 <label className="mb-2 flex items-center gap-2 text-sm font-bold text-[#201A16]">
                   <MapPin size={16} className="text-[#BE6F22]" />
                   Pickup Spot
@@ -398,7 +397,7 @@ export default function Cart() {
                 </div>
               </div>
 
-              <div className="mt-6">
+              <div className="mt-4 sm:mt-6">
                 <h3 className="mb-3 flex items-center gap-2 text-sm font-bold text-[#201A16]">
                   <CreditCard size={16} className="text-[#BE6F22]" />
                   Payment Method
@@ -408,7 +407,7 @@ export default function Cart() {
                   {paymentMethods.map(({ value, label, detail, Icon }) => (
                     <label
                       key={value}
-                      className={`flex cursor-pointer items-center gap-3 rounded-lg border p-4 transition ${
+                      className={`flex cursor-pointer items-center gap-3 rounded-lg border p-3 transition sm:p-4 ${
                         paymentMethod === value
                           ? "border-[#BE8A4C] bg-[#FFF7EA] shadow-sm"
                           : "border-[#E6D8C7] bg-white hover:bg-[#FBF6EF]"
@@ -462,7 +461,7 @@ export default function Cart() {
               <button
                 onClick={handlePlaceOrder}
                 disabled={isPlacingOrder}
-                className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-md bg-[#201A16] px-5 py-4 font-bold text-white transition hover:bg-[#332820] disabled:cursor-not-allowed disabled:bg-[#756657]"
+                className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-md bg-[#201A16] px-5 py-3.5 font-bold text-white transition hover:bg-[#332820] disabled:cursor-not-allowed disabled:bg-[#756657] sm:mt-6 sm:py-4"
               >
                 {isPlacingOrder ? "Placing Order" : "Place Order"}
                 <ArrowRight size={18} />

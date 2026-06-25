@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import {
   ClipboardList,
   Home,
@@ -167,57 +167,89 @@ export default function Navbar() {
           </button>
         </div>
 
-        {isOpen && (
-          <div className="border-t border-[#E8DCCF] py-4 lg:hidden">
-            <div className="grid gap-2">
-              {navLinks.map((link) => (
-                <NavItem
-                  key={link.to}
-                  {...link}
-                  active={isActive(link.to)}
-                  onClick={closeMenu}
-                  layoutId="mobile-nav-active-pill"
-                />
-              ))}
-
-              {user?.role === "admin" && (
-                <NavItem
-                  to="/admin/dashboard"
-                  label="Admin Panel"
-                  Icon={LayoutDashboard}
-                  primary
-                  active={isActive("/admin/dashboard")}
-                  onClick={closeMenu}
-                  layoutId="mobile-nav-active-pill"
-                />
-              )}
-            </div>
-
-            {user && (
-              <div className="mt-4 grid gap-3 border-t border-[#E8DCCF] pt-4">
-                <div className="flex items-center gap-3 rounded-lg border border-[#E8DCCF] bg-[#FAF6F0] px-3 py-2">
-                  <div className="flex h-9 w-9 items-center justify-center rounded-md bg-[#D79A4B] font-extrabold text-[#3B2416]">
-                    {user.name?.charAt(0).toUpperCase()}
-                  </div>
-                  <div>
-                    <p className="text-xs font-semibold text-[#8A7A6C]">
-                      Welcome back
-                    </p>
-                    <p className="font-extrabold text-[#20130D]">{user.name}</p>
-                  </div>
+        <AnimatePresence>
+          {isOpen && (
+            <div className="lg:hidden">
+              <motion.button
+                type="button"
+                aria-label="Close navigation"
+                className="fixed inset-0 z-[80] bg-[#20130D]/45 backdrop-blur-[2px]"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                onClick={closeMenu}
+              />
+              <motion.aside
+                className="fixed bottom-0 right-0 top-0 z-[90] flex w-[82vw] max-w-sm flex-col border-l border-[#E8DCCF] bg-white p-4 shadow-2xl shadow-[#20130D]/25"
+                initial={{ x: "100%" }}
+                animate={{ x: 0 }}
+                exit={{ x: "100%" }}
+                transition={{ type: "spring", stiffness: 360, damping: 34 }}
+              >
+                <div className="flex items-center justify-between gap-3 border-b border-[#E8DCCF] pb-4">
+                  <BrandLogo />
+                  <button
+                    onClick={closeMenu}
+                    className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-[#E8DCCF] bg-[#FBF6EF] text-[#3B2416]"
+                    aria-label="Close navigation"
+                  >
+                    <X size={20} />
+                  </button>
                 </div>
 
-                <button
-                  onClick={handleLogout}
-                  className="inline-flex items-center justify-center gap-2 rounded-lg border border-[#F2D6D0] bg-[#FFF5F3] px-3.5 py-2 text-sm font-bold text-[#B83224] transition hover:bg-[#FFE8E3]"
-                >
-                  <LogOut size={17} />
-                  Logout
-                </button>
-              </div>
-            )}
-          </div>
-        )}
+                <div className="mt-5 grid gap-2">
+                  {navLinks.map((link) => (
+                    <NavItem
+                      key={link.to}
+                      {...link}
+                      active={isActive(link.to)}
+                      onClick={closeMenu}
+                      layoutId="mobile-nav-active-pill"
+                    />
+                  ))}
+
+                  {user?.role === "admin" && (
+                    <NavItem
+                      to="/admin/dashboard"
+                      label="Admin Panel"
+                      Icon={LayoutDashboard}
+                      primary
+                      active={isActive("/admin/dashboard")}
+                      onClick={closeMenu}
+                      layoutId="mobile-nav-active-pill"
+                    />
+                  )}
+                </div>
+
+                {user && (
+                  <div className="mt-auto grid gap-3 border-t border-[#E8DCCF] pt-4">
+                    <div className="flex items-center gap-3 rounded-lg border border-[#E8DCCF] bg-[#FAF6F0] px-3 py-2">
+                      <div className="flex h-9 w-9 items-center justify-center rounded-md bg-[#D79A4B] font-extrabold text-[#3B2416]">
+                        {user.name?.charAt(0).toUpperCase()}
+                      </div>
+                      <div className="min-w-0">
+                        <p className="text-xs font-semibold text-[#8A7A6C]">
+                          Welcome back
+                        </p>
+                        <p className="truncate font-extrabold text-[#20130D]">
+                          {user.name}
+                        </p>
+                      </div>
+                    </div>
+
+                    <button
+                      onClick={handleLogout}
+                      className="inline-flex items-center justify-center gap-2 rounded-lg border border-[#F2D6D0] bg-[#FFF5F3] px-3.5 py-2 text-sm font-bold text-[#B83224] transition hover:bg-[#FFE8E3]"
+                    >
+                      <LogOut size={17} />
+                      Logout
+                    </button>
+                  </div>
+                )}
+              </motion.aside>
+            </div>
+          )}
+        </AnimatePresence>
       </div>
     </nav>
   );

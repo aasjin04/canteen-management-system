@@ -37,51 +37,51 @@ export default function Menu() {
       <section className="relative overflow-hidden border-b border-[#DDD0C1] bg-[#16120F] text-white">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_20%,rgba(194,135,69,0.24),transparent_34%),linear-gradient(135deg,rgba(255,255,255,0.08),transparent_38%)]" />
 
-        <div className="relative mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+        <div className="relative mx-auto max-w-7xl px-4 py-7 sm:px-6 sm:py-10 lg:px-8">
           <Link
             to="/"
-            className="mb-8 inline-flex w-fit items-center gap-2 rounded-md border border-white/15 bg-white/10 px-3 py-2 text-sm font-bold text-[#E9C48E] transition hover:bg-white/15"
+            className="mb-5 inline-flex w-fit items-center gap-2 rounded-md border border-white/15 bg-white/10 px-3 py-2 text-sm font-bold text-[#E9C48E] transition hover:bg-white/15"
           >
             <ArrowLeft size={16} />
             Back to Home
           </Link>
 
-          <div className="grid gap-8 lg:grid-cols-[1fr_360px] lg:items-end">
+          <div className="grid gap-5 lg:grid-cols-[1fr_320px] lg:items-end">
             <div>
-              <div className="mb-5 inline-flex items-center gap-2 rounded-md border border-white/15 bg-white/10 px-3 py-2 text-sm font-semibold text-[#E9C48E]">
+              <div className="mb-4 inline-flex items-center gap-2 rounded-md border border-white/15 bg-white/10 px-3 py-1.5 text-xs font-semibold text-[#E9C48E] sm:text-sm">
                 <Sparkles size={16} />
                 Signature canteen menu
               </div>
 
               <h1
-                className="text-4xl font-semibold leading-none sm:text-5xl lg:text-6xl"
+                className="text-3xl font-semibold leading-tight sm:text-5xl lg:text-6xl"
               >
                 Explore Delicious Food
               </h1>
 
-              <p className="mt-4 max-w-2xl text-base leading-7 text-[#D9CDC0] sm:text-lg">
+              <p className="mt-3 max-w-2xl text-sm leading-6 text-[#D9CDC0] sm:text-lg sm:leading-7">
                 Choose from fresh meals, campus favourites, and signature
                 plates prepared for quick pickup.
               </p>
             </div>
 
             <div className="grid grid-cols-2 gap-3">
-              <div className="rounded-lg border border-white/10 bg-white/[0.07] p-4">
+              <div className="rounded-lg border border-white/10 bg-white/[0.07] p-3 sm:p-4">
                 <div className="flex items-center justify-between gap-3">
                   <p className="text-sm font-medium text-[#C9B9A6]">Showing</p>
                   <Soup size={18} className="text-[#E9C48E]" />
                 </div>
-                <p className="mt-3 text-2xl font-bold text-white">
+                <p className="mt-2 text-xl font-bold text-white sm:text-2xl">
                   {filteredFoods.length}
                 </p>
               </div>
 
-              <div className="rounded-lg border border-white/10 bg-white/[0.07] p-4">
+              <div className="rounded-lg border border-white/10 bg-white/[0.07] p-3 sm:p-4">
                 <div className="flex items-center justify-between gap-3">
                   <p className="text-sm font-medium text-[#C9B9A6]">Featured</p>
                   <ChefHat size={18} className="text-[#E9C48E]" />
                 </div>
-                <p className="mt-3 text-2xl font-bold text-white">
+                <p className="mt-2 text-xl font-bold text-white sm:text-2xl">
                   {featuredCount}
                 </p>
               </div>
@@ -90,8 +90,8 @@ export default function Menu() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
-        <div className="mb-8 rounded-lg border border-[#DDD0C1] bg-white p-4 shadow-sm">
+      <section className="mx-auto max-w-7xl px-4 py-6 sm:px-6 sm:py-10 lg:px-8">
+        <div className="mb-5 rounded-lg border border-[#DDD0C1] bg-white p-3 shadow-sm sm:mb-8 sm:p-4">
           <div className="mb-3 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <label className="flex items-center gap-2 text-sm font-bold text-[#201A16]">
               <Search size={16} className="text-[#BE6F22]" />
@@ -122,13 +122,13 @@ export default function Menu() {
               placeholder="Search your favourite food..."
               value={search}
               onChange={(event) => setSearch(event.target.value)}
-              className="w-full rounded-lg border border-[#E6D8C7] bg-[#FBF6EF] py-4 pl-12 pr-4 font-semibold text-[#201A16] outline-none transition placeholder:text-[#9B8A78] focus:border-[#BE8A4C] focus:bg-white focus:ring-4 focus:ring-[#BE8A4C]/15"
+              className="w-full rounded-lg border border-[#E6D8C7] bg-[#FBF6EF] py-3 pl-12 pr-4 font-semibold text-[#201A16] outline-none transition placeholder:text-[#9B8A78] focus:border-[#BE8A4C] focus:bg-white focus:ring-4 focus:ring-[#BE8A4C]/15 sm:py-4"
             />
           </div>
         </div>
 
         {filteredFoods.length > 0 ? (
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3">
             {filteredFoods.map((food) => (
               <FoodCard key={food._id} food={food} />
             ))}

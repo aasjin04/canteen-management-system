@@ -24,13 +24,13 @@ const formatCurrency = (value) =>
 function StatCard({ title, value, detail, Icon, accent, dark = false }) {
   return (
     <article
-      className={`group overflow-hidden rounded-lg border p-5 shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl ${
+      className={`group overflow-hidden rounded-lg border p-3.5 shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl sm:p-4 ${
         dark
           ? "border-[#F0B35B]/25 bg-[#20130D] text-white shadow-[#20130D]/15"
           : "border-[#E8DCCF] bg-white text-[#20130D] shadow-[#3B2416]/5"
       }`}
     >
-      <div className="flex items-start justify-between gap-4">
+      <div className="flex items-start justify-between gap-3">
         <div>
           <p
             className={`text-xs font-extrabold uppercase tracking-[0.16em] ${
@@ -39,18 +39,20 @@ function StatCard({ title, value, detail, Icon, accent, dark = false }) {
           >
             {title}
           </p>
-          <p className="mt-3 text-3xl font-black tracking-tight">{value}</p>
+          <p className="mt-2 text-2xl font-black tracking-tight sm:text-3xl">
+            {value}
+          </p>
         </div>
 
         <div
-          className={`flex h-12 w-12 items-center justify-center rounded-lg bg-gradient-to-br ${accent} text-white shadow-lg shadow-black/10 transition group-hover:scale-105`}
+          className={`flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br ${accent} text-white shadow-lg shadow-black/10 transition group-hover:scale-105 sm:h-12 sm:w-12`}
         >
-          <Icon size={22} />
+          <Icon size={20} />
         </div>
       </div>
 
       <p
-        className={`mt-4 text-sm font-semibold ${
+        className={`mt-3 text-xs font-semibold sm:text-sm ${
           dark ? "text-[#EBD6BA]" : "text-[#756657]"
         }`}
       >
@@ -64,10 +66,10 @@ function PipelineStep({ label, value, total, Icon, color }) {
   const percent = total > 0 ? Math.round((value / total) * 100) : 0;
 
   return (
-    <div className="rounded-lg border border-[#E8DCCF] bg-white p-4 shadow-sm shadow-[#3B2416]/5">
+    <div className="rounded-lg border border-[#E8DCCF] bg-white p-3 shadow-sm shadow-[#3B2416]/5 sm:p-4">
       <div className="flex items-center justify-between gap-3">
         <div className="flex items-center gap-3">
-          <span className={`flex h-10 w-10 items-center justify-center rounded-lg ${color}`}>
+          <span className={`flex h-9 w-9 items-center justify-center rounded-lg sm:h-10 sm:w-10 ${color}`}>
             <Icon size={18} />
           </span>
           <div>
@@ -77,10 +79,10 @@ function PipelineStep({ label, value, total, Icon, color }) {
             </p>
           </div>
         </div>
-        <p className="text-2xl font-black text-[#20130D]">{value}</p>
+        <p className="text-xl font-black text-[#20130D] sm:text-2xl">{value}</p>
       </div>
 
-      <div className="mt-4 h-2 overflow-hidden rounded-full bg-[#F2E6D8]">
+      <div className="mt-3 h-2 overflow-hidden rounded-full bg-[#F2E6D8]">
         <div
           className="h-full rounded-full bg-[#D79A4B] transition-all"
           style={{ width: `${percent}%` }}
@@ -125,32 +127,32 @@ export default function Dashboard() {
   return (
     <AdminLayout>
       <div className="-m-3 min-h-screen bg-[#FBF6EF] p-3 sm:-m-4 sm:p-4 lg:-m-6 lg:p-6">
-        <section className="overflow-hidden rounded-lg bg-[linear-gradient(135deg,#20130D_0%,#3B2416_52%,#8B4A24_100%)] p-6 text-white shadow-2xl shadow-[#3B2416]/20">
-          <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+        <section className="overflow-hidden rounded-lg bg-[linear-gradient(135deg,#20130D_0%,#3B2416_52%,#8B4A24_100%)] p-4 text-white shadow-2xl shadow-[#3B2416]/20 sm:p-5 lg:p-6">
+          <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
             <div>
               <h1
-                className="mt-5 text-4xl font-semibold leading-tight md:text-5xl"
+                className="text-3xl font-semibold leading-tight sm:text-4xl md:text-5xl"
               >
                 Dashboard
               </h1>
-              <p className="mt-3 max-w-2xl text-sm font-semibold leading-7 text-[#F2DDC2] md:text-base">
+              <p className="mt-2 max-w-2xl text-sm font-semibold leading-6 text-[#F2DDC2] md:text-base md:leading-7">
                 Track live kitchen movement, menu strength, and delivered
                 revenue from one elegant admin workspace.
               </p>
             </div>
 
-            <div className="grid gap-3 rounded-lg border border-white/15 bg-white/10 p-4 backdrop-blur sm:grid-cols-2">
-              <div className="min-w-36">
+            <div className="grid gap-3 rounded-lg border border-white/15 bg-white/10 p-3 backdrop-blur sm:grid-cols-2 sm:p-4">
+              <div className="min-w-0">
                 <p className="text-xs font-bold uppercase tracking-wider text-[#F0B35B]">
                   Active Orders
                 </p>
-                <p className="mt-2 text-3xl font-black">{activeOrders}</p>
+                <p className="mt-1 text-2xl font-black sm:mt-2 sm:text-3xl">{activeOrders}</p>
               </div>
-              <div className="min-w-36">
+              <div className="min-w-0">
                 <p className="text-xs font-bold uppercase tracking-wider text-[#F0B35B]">
                   Avg. Order
                 </p>
-                <p className="mt-2 text-3xl font-black">
+                <p className="mt-1 text-2xl font-black sm:mt-2 sm:text-3xl">
                   {formatCurrency(averageOrderValue)}
                 </p>
               </div>
@@ -158,7 +160,7 @@ export default function Dashboard() {
           </div>
         </section>
 
-        <section className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+        <section className="mt-4 grid gap-3 sm:grid-cols-2 lg:mt-6 xl:grid-cols-4">
           <StatCard
             title="Total Orders"
             value={orders.length}
@@ -190,14 +192,14 @@ export default function Dashboard() {
           />
         </section>
 
-        <section className="mt-6">
-          <div className="rounded-lg border border-[#E8DCCF] bg-white p-4 shadow-sm shadow-[#3B2416]/5 sm:p-5">
-            <div className="mb-5 flex items-center justify-between gap-4">
+        <section className="mt-4 lg:mt-6">
+          <div className="rounded-lg border border-[#E8DCCF] bg-white p-3 shadow-sm shadow-[#3B2416]/5 sm:p-5">
+            <div className="mb-4 flex items-center justify-between gap-4 sm:mb-5">
               <div>
                 <p className="text-xs font-extrabold uppercase tracking-[0.16em] text-[#B8752F]">
                   Order Pipeline
                 </p>
-                <h2 className="mt-1 text-2xl font-black text-[#20130D]">
+                <h2 className="mt-1 text-xl font-black text-[#20130D] sm:text-2xl">
                   Kitchen Flow
                 </h2>
               </div>
