@@ -89,7 +89,7 @@ function StatusChip({ status }) {
 
   return (
     <span
-      className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-extrabold ${meta.chip}`}
+      className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-[11px] font-extrabold sm:text-xs ${meta.chip}`}
     >
       <Icon size={13} />
       {status || "Pending"}
@@ -237,49 +237,49 @@ export default function ManageOrders() {
                 return (
                   <article
                     key={order._id || order.id || orderIndex}
-                    className="rounded-lg border border-[#E8DCCF] bg-[#FBF6EF] p-3 shadow-sm transition hover:-translate-y-0.5 hover:border-[#B8752F] hover:shadow-lg hover:shadow-[#3B2416]/10 sm:p-4"
+                    className="rounded-lg border border-[#E8DCCF] bg-[#FBF6EF] p-2.5 shadow-sm transition hover:-translate-y-0.5 hover:border-[#B8752F] hover:shadow-lg hover:shadow-[#3B2416]/10 sm:p-4"
                   >
-                    <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                    <div className="flex items-start justify-between gap-2">
                       <div className="min-w-0">
-                        <p className="text-xs font-extrabold uppercase tracking-[0.16em] text-[#B8752F]">
+                        <p className="text-[10px] font-extrabold uppercase tracking-[0.16em] text-[#B8752F] sm:text-xs">
                           Ordered By
                         </p>
-                        <h3 className="mt-1 break-words text-lg font-black text-[#20130D] sm:text-xl">
+                        <h3 className="mt-0.5 truncate text-base font-black text-[#20130D] sm:text-xl">
                           {customerName}
                         </h3>
-                        <p className="mt-1 text-xs font-bold uppercase tracking-wider text-[#8A7A6C]">
+                        <p className="mt-0.5 text-[10px] font-bold uppercase tracking-wider text-[#8A7A6C] sm:text-xs">
                           Ref {orderRef}
                         </p>
                       </div>
                       <StatusChip status={order.status} />
                     </div>
 
-                    <div className="mt-3 grid gap-2 sm:grid-cols-2 lg:mt-4">
+                    <div className="mt-2 grid grid-cols-2 gap-2 sm:mt-3">
                       <div className="rounded-lg border border-[#E8DCCF] bg-white p-2.5 sm:p-3">
-                        <p className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#8A7A6C]">
+                        <p className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-[#8A7A6C] sm:text-xs">
                           <MapPin size={14} />
                           Pickup Spot
                         </p>
-                        <p className="mt-1 font-extrabold text-[#20130D]">
+                        <p className="mt-1 truncate text-sm font-extrabold text-[#20130D] sm:text-base">
                           {order.pickupSpot || "Not assigned"}
                         </p>
                       </div>
                       <div className="rounded-lg border border-[#E8DCCF] bg-white p-2.5 sm:p-3">
-                        <p className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#8A7A6C]">
+                        <p className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-[#8A7A6C] sm:text-xs">
                           <IndianRupee size={14} />
                           Total
                         </p>
-                        <p className="mt-1 font-extrabold text-[#2F7D59]">
+                        <p className="mt-1 truncate text-sm font-extrabold text-[#2F7D59] sm:text-base">
                           {formatCurrency(order.total)}
                         </p>
                       </div>
                     </div>
 
-                    <div className="mt-3 lg:mt-4">
-                      <p className="mb-2 text-sm font-extrabold text-[#20130D]">
+                    <div className="mt-2.5 sm:mt-3">
+                      <p className="mb-2 text-xs font-extrabold text-[#20130D] sm:text-sm">
                         Items
                       </p>
-                      <div className="grid gap-2">
+                      <div className="grid gap-1.5">
                         {orderItems.length === 0 ? (
                           <p className="rounded-lg border border-dashed border-[#D9C6B2] bg-white p-3 text-sm font-semibold text-[#756657]">
                             No items listed for this order.
@@ -288,12 +288,12 @@ export default function ManageOrders() {
                           orderItems.map((item, itemIndex) => (
                             <div
                               key={item._id || item.id || `${item.name}-${itemIndex}`}
-                              className="flex flex-col gap-1 rounded-lg border border-[#E8DCCF] bg-white px-2.5 py-1.5 text-sm sm:flex-row sm:items-center sm:justify-between"
+                              className="flex items-center justify-between gap-2 rounded-lg border border-[#E8DCCF] bg-white px-2.5 py-1.5 text-xs sm:text-sm"
                             >
-                              <span className="font-semibold text-[#20130D]">
+                              <span className="truncate font-semibold text-[#20130D]">
                                 {item.name}
                               </span>
-                              <span className="rounded-full bg-[#FFF4D9] px-2.5 py-1 text-xs font-extrabold text-[#9A650D]">
+                              <span className="shrink-0 rounded-full bg-[#FFF4D9] px-2 py-0.5 text-[11px] font-extrabold text-[#9A650D]">
                                 x {item.quantity}
                               </span>
                             </div>
@@ -302,15 +302,15 @@ export default function ManageOrders() {
                       </div>
                     </div>
 
-                    <div className="mt-3 border-t border-[#E8DCCF] pt-3 lg:mt-4">
+                    <div className="mt-3 border-t border-[#E8DCCF] pt-3">
                       {order.status === "Pending" ? (
-                        <div className="grid gap-2 sm:flex sm:flex-wrap">
+                        <div className="grid grid-cols-2 gap-2">
                           <button
                             type="button"
                             onClick={() =>
                               updateOrderStatus(order._id, "Accepted")
                             }
-                            className="inline-flex items-center justify-center gap-2 rounded-lg bg-[#24784A] px-3 py-2 text-sm font-extrabold text-white shadow-sm transition hover:bg-[#1D603B]"
+                            className="inline-flex items-center justify-center gap-1.5 rounded-lg bg-[#24784A] px-2.5 py-2 text-xs font-extrabold text-white shadow-sm transition hover:bg-[#1D603B] sm:text-sm"
                           >
                             <BadgeCheck size={16} />
                             Accept Order
@@ -321,7 +321,7 @@ export default function ManageOrders() {
                             onClick={() =>
                               updateOrderStatus(order._id, "Rejected")
                             }
-                            className="inline-flex items-center justify-center gap-2 rounded-lg bg-[#B83224] px-3 py-2 text-sm font-extrabold text-white shadow-sm transition hover:bg-[#94281D]"
+                            className="inline-flex items-center justify-center gap-1.5 rounded-lg bg-[#B83224] px-2.5 py-2 text-xs font-extrabold text-white shadow-sm transition hover:bg-[#94281D] sm:text-sm"
                           >
                             <XCircle size={16} />
                             Reject Order
@@ -332,7 +332,7 @@ export default function ManageOrders() {
                           This order was {order.status.toLowerCase()}.
                         </p>
                       ) : (
-                        <div className="grid gap-2 sm:flex sm:flex-wrap">
+                        <div className="grid grid-cols-3 gap-2">
                           {["Preparing", "Ready", "Delivered"].map((status) => {
                             const meta = statusMeta[status];
                             const isCurrent = order.status === status;
@@ -348,7 +348,7 @@ export default function ManageOrders() {
                                   updateOrderStatus(order._id, status)
                                 }
                                 disabled={isCurrent || isDone}
-                                className={`rounded-lg px-3 py-2 text-sm font-extrabold text-white shadow-sm transition disabled:cursor-not-allowed disabled:opacity-45 ${meta.button}`}
+                                className={`rounded-lg px-2 py-2 text-xs font-extrabold text-white shadow-sm transition disabled:cursor-not-allowed disabled:opacity-45 sm:text-sm ${meta.button}`}
                               >
                                 {isCurrent ? `${status} Now` : status}
                               </button>
@@ -357,12 +357,12 @@ export default function ManageOrders() {
                         </div>
                       )}
 
-                      <div className="mt-3">
+                      <div className="mt-2.5">
                         <button
                           type="button"
                           onClick={() => handleDeleteOrderHistory(order._id)}
                           disabled={deletingOrderId === order._id}
-                          className="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-[#F1C6BC] bg-[#FFF3F0] px-4 py-2 text-sm font-extrabold text-[#B83224] transition hover:bg-[#FFE4DE] disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
+                          className="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-[#F1C6BC] bg-[#FFF3F0] px-3 py-2 text-xs font-extrabold text-[#B83224] transition hover:bg-[#FFE4DE] disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto sm:text-sm"
                         >
                           <Trash2 size={16} />
                           {deletingOrderId === order._id

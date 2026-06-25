@@ -342,142 +342,134 @@ export default function Orders() {
                   key={order._id}
                   className="overflow-hidden rounded-lg border border-[#DDD0C1] bg-white shadow-sm transition hover:-translate-y-0.5 hover:border-[#BE8A4C] hover:shadow-xl hover:shadow-[#6A3D18]/10"
                 >
-                  <div className="grid gap-0 lg:grid-cols-[1fr_280px]">
-                    <div className="p-3 sm:p-5">
-                      <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
-                        <div className="min-w-0">
-                          <p className="text-xs font-bold text-[#BE6F22] sm:text-sm">
-                            Order #{order._id?.slice(-6) || "new"}
-                          </p>
-                          <h2
-                            className="mt-0.5 text-xl font-semibold text-[#201A16] sm:text-2xl"
-                          >
-                            Canteen pickup receipt
-                          </h2>
-                        </div>
-
-                        <div className="flex flex-wrap items-center gap-2">
-                          <span
-                            className={`inline-flex w-fit items-center gap-2 rounded-md border px-2.5 py-1.5 text-xs font-bold sm:px-3 sm:py-2 sm:text-sm ${status.classes}`}
-                          >
-                            <StatusIcon size={16} />
-                            {status.label}
-                          </span>
-
-                          {canCancelOrder && (
-                            <button
-                              onClick={() => handleCancelOrder(order._id)}
-                              disabled={cancelingOrderId === order._id}
-                              className="inline-flex w-fit items-center gap-1.5 rounded-md border border-red-200 bg-white px-2.5 py-1.5 text-xs font-bold text-red-600 transition hover:bg-red-50 disabled:cursor-not-allowed disabled:opacity-60 sm:gap-2 sm:px-3 sm:py-2"
-                            >
-                              <XCircle size={14} />
-                              {cancelingOrderId === order._id
-                                ? "Cancelling"
-                                : "Cancel Order"}
-                            </button>
-                          )}
-
-                          <button
-                            onClick={() => handleDeleteOrder(order._id)}
-                            disabled={deletingOrderId === order._id}
-                            className="inline-flex w-fit items-center gap-1.5 rounded-md border border-red-100 bg-red-50 px-2.5 py-1.5 text-xs font-bold text-red-600 transition hover:bg-red-100 disabled:cursor-not-allowed disabled:opacity-60 sm:gap-2 sm:px-3 sm:py-2"
-                          >
-                            <Trash2 size={14} />
-                            {deletingOrderId === order._id
-                              ? "Deleting"
-                              : "Delete"}
-                          </button>
-                        </div>
-                      </div>
-
-                      <div className="mt-4 grid gap-3 md:grid-cols-3 sm:mt-5">
-                        <div className="border-l-2 border-[#D9AE76] pl-3 sm:pl-4">
-                          <div className="flex items-center gap-2 text-sm font-semibold text-[#756657]">
-                            <MapPin size={16} />
-                            Pickup Spot
-                          </div>
-                          <p className="mt-1 font-bold text-[#201A16]">
-                            {order.pickupSpot || "Counter to be assigned"}
-                          </p>
-                        </div>
-
-                        <div className="border-l-2 border-[#8D2C2C] pl-3 sm:pl-4">
-                          <div className="flex items-center gap-2 text-sm font-semibold text-[#756657]">
-                            <CreditCard size={16} />
-                            Payment Method
-                          </div>
-                          <p className="mt-1 font-bold text-[#201A16]">
-                            {order.paymentMethod || "Not selected"}
-                          </p>
-                        </div>
-
-                        <div className="border-l-2 border-[#2F7D59] pl-3 sm:pl-4">
-                          <div className="flex items-center gap-2 text-sm font-semibold text-[#756657]">
-                            <IndianRupee size={16} />
-                            Total Amount
-                          </div>
-                          <p className="mt-1 text-lg font-extrabold text-[#8D2C2C] sm:text-xl">
-                            {formatCurrency(order.total)}
-                          </p>
-                        </div>
-                      </div>
-
-                      <div className="mt-4 sm:mt-5">
-                        <p className="mb-2 text-sm font-bold text-[#756657]">
-                          Ordered Items
+                  <div className="p-3 sm:p-5">
+                    <div className="flex items-start justify-between gap-3">
+                      <div className="min-w-0">
+                        <p className="text-[10px] font-extrabold uppercase tracking-[0.16em] text-[#BE6F22] sm:text-xs">
+                          Order #{order._id?.slice(-6) || "new"}
                         </p>
-                        <div className="flex flex-wrap gap-2">
-                          {orderItems.map((item, index) => (
-                            <span
-                              key={`${item.name}-${index}`}
-                              className="inline-flex items-center gap-2 rounded-md border border-[#E6D8C7] bg-[#FBF6EF] px-2.5 py-1.5 text-xs font-semibold text-[#3A2E25] sm:px-3 sm:py-2 sm:text-sm"
-                            >
-                              <span className="h-1.5 w-1.5 rounded-full bg-[#BE6F22]" />
-                              {item.name} x {item.quantity}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-
-                    <aside className="border-t border-[#E6D8C7] bg-[#FBF6EF] p-3 sm:p-5 lg:border-l lg:border-t-0">
-                      <div
-                        className={`inline-flex items-center gap-2 rounded-md border px-3 py-2 text-sm font-bold ${
-                          isPaid
-                            ? "border-emerald-200 bg-emerald-50 text-emerald-700"
-                            : "border-amber-200 bg-amber-50 text-amber-700"
-                        }`}
-                      >
-                        {isPaid ? (
-                          <CheckCircle2 size={16} />
-                        ) : (
-                          <Hourglass size={16} />
-                        )}
-                        {isPaid ? "Payment Completed" : "Payment Pending"}
-                      </div>
-
-                      <div className="mt-4 sm:mt-6">
-                        <p className="text-sm font-semibold text-[#756657]">
-                          Placed On
-                        </p>
-                        <p className="mt-2 flex items-center gap-2 font-bold text-[#201A16]">
-                          <Clock3 size={17} className="text-[#BE6F22]" />
+                        <h2 className="mt-0.5 truncate text-lg font-black text-[#201A16] sm:text-2xl">
+                          {order.pickupSpot || "Canteen pickup"}
+                        </h2>
+                        <p className="mt-1 flex items-center gap-1.5 text-xs font-semibold text-[#756657] sm:text-sm">
+                          <Clock3 size={14} className="text-[#BE6F22]" />
                           {formatDate(order.createdAt)}
                         </p>
                       </div>
 
-                      <div className="mt-4 border-t border-[#E6D8C7] pt-4 sm:mt-6 sm:pt-5">
-                        <p className="text-sm font-semibold text-[#756657]">
-                          Items in this order
+                      <span
+                        className={`inline-flex shrink-0 items-center gap-1.5 rounded-md border px-2.5 py-1.5 text-[11px] font-bold sm:text-sm ${status.classes}`}
+                      >
+                        <StatusIcon size={14} />
+                        {status.label}
+                      </span>
+                    </div>
+
+                    <div className="mt-3 grid grid-cols-2 gap-2 sm:mt-4 md:grid-cols-4">
+                      <div className="rounded-lg border border-[#E6D8C7] bg-[#FBF6EF] p-2.5 sm:p-3">
+                        <p className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-[#8A7A6C] sm:text-xs">
+                          <MapPin size={14} />
+                          Spot
                         </p>
-                        <p className="mt-1 text-2xl font-extrabold text-[#201A16] sm:text-3xl">
+                        <p className="mt-1 truncate text-sm font-extrabold text-[#201A16] sm:text-base">
+                          {order.pickupSpot || "Assigning"}
+                        </p>
+                      </div>
+
+                      <div className="rounded-lg border border-[#E6D8C7] bg-[#FBF6EF] p-2.5 sm:p-3">
+                        <p className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-[#8A7A6C] sm:text-xs">
+                          <CreditCard size={14} />
+                          Payment
+                        </p>
+                        <p className="mt-1 truncate text-sm font-extrabold text-[#201A16] sm:text-base">
+                          {order.paymentMethod || "Not selected"}
+                        </p>
+                      </div>
+
+                      <div className="rounded-lg border border-[#E6D8C7] bg-[#FBF6EF] p-2.5 sm:p-3">
+                        <p className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-[#8A7A6C] sm:text-xs">
+                          <IndianRupee size={14} />
+                          Total
+                        </p>
+                        <p className="mt-1 truncate text-sm font-extrabold text-[#8D2C2C] sm:text-base">
+                          {formatCurrency(order.total)}
+                        </p>
+                      </div>
+
+                      <div className="rounded-lg border border-[#E6D8C7] bg-[#FBF6EF] p-2.5 sm:p-3">
+                        <p className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-[#8A7A6C] sm:text-xs">
+                          <ReceiptText size={14} />
+                          Items
+                        </p>
+                        <p className="mt-1 text-sm font-extrabold text-[#201A16] sm:text-base">
                           {orderItems.reduce(
                             (sum, item) => sum + Number(item.quantity || 0),
                             0,
                           )}
                         </p>
                       </div>
-                    </aside>
+                    </div>
+
+                    <div className="mt-3 flex flex-wrap gap-1.5 sm:mt-4 sm:gap-2">
+                      {orderItems.map((item, index) => (
+                        <span
+                          key={`${item.name}-${index}`}
+                          className="inline-flex max-w-full items-center gap-1.5 rounded-md border border-[#E6D8C7] bg-white px-2.5 py-1.5 text-xs font-semibold text-[#3A2E25] sm:text-sm"
+                        >
+                          <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#BE6F22]" />
+                          <span className="truncate">
+                            {item.name} x {item.quantity}
+                          </span>
+                        </span>
+                      ))}
+                    </div>
+
+                    <div className="mt-3 flex flex-col gap-2 border-t border-[#E6D8C7] pt-3 sm:flex-row sm:items-center sm:justify-between">
+                      <div
+                        className={`inline-flex w-fit items-center gap-2 rounded-md border px-2.5 py-1.5 text-xs font-bold sm:text-sm ${
+                          isPaid
+                            ? "border-emerald-200 bg-emerald-50 text-emerald-700"
+                            : "border-amber-200 bg-amber-50 text-amber-700"
+                        }`}
+                      >
+                        {isPaid ? (
+                          <CheckCircle2 size={15} />
+                        ) : (
+                          <Hourglass size={15} />
+                        )}
+                        {isPaid ? "Paid" : "Payment Pending"}
+                      </div>
+
+                      <div
+                        className={`grid gap-2 sm:flex sm:flex-wrap sm:justify-end ${
+                          canCancelOrder ? "grid-cols-2" : "grid-cols-1"
+                        }`}
+                      >
+                        {canCancelOrder && (
+                          <button
+                            onClick={() => handleCancelOrder(order._id)}
+                            disabled={cancelingOrderId === order._id}
+                            className="inline-flex items-center justify-center gap-1.5 rounded-md border border-red-200 bg-white px-2.5 py-1.5 text-xs font-bold text-red-600 transition hover:bg-red-50 disabled:cursor-not-allowed disabled:opacity-60 sm:gap-2 sm:px-3 sm:py-2"
+                          >
+                            <XCircle size={14} />
+                            {cancelingOrderId === order._id
+                              ? "Cancelling"
+                              : "Cancel Order"}
+                          </button>
+                        )}
+
+                        <button
+                          onClick={() => handleDeleteOrder(order._id)}
+                          disabled={deletingOrderId === order._id}
+                          className="inline-flex items-center justify-center gap-1.5 rounded-md border border-red-100 bg-red-50 px-2.5 py-1.5 text-xs font-bold text-red-600 transition hover:bg-red-100 disabled:cursor-not-allowed disabled:opacity-60 sm:gap-2 sm:px-3 sm:py-2"
+                        >
+                          <Trash2 size={14} />
+                          {deletingOrderId === order._id
+                            ? "Deleting"
+                            : "Delete"}
+                        </button>
+                      </div>
+                    </div>
                   </div>
                 </article>
               );

@@ -25,6 +25,7 @@ function NavItem({
   primary = false,
   active = false,
   onClick,
+  block = false,
   layoutId = "nav-active-pill",
 }) {
   return (
@@ -32,11 +33,15 @@ function NavItem({
       to={to}
       onClick={onClick}
       className={`relative inline-flex items-center gap-2 overflow-hidden rounded-lg px-3.5 py-2 text-sm font-bold transition ${
+        block ? "w-full justify-start" : ""
+      } ${
         primary
           ? "bg-[#3B2416] text-white shadow-sm hover:bg-[#4A2D1C]"
           : active
             ? "text-[#9A5B22]"
-            : "text-[#5B4638] hover:bg-[#FFF7EF] hover:text-[#9A5B22]"
+            : block
+              ? "bg-[#FBF6EF] text-[#3B2416] hover:bg-[#FFF3E4] hover:text-[#9A5B22]"
+              : "text-[#5B4638] hover:bg-[#FFF7EF] hover:text-[#9A5B22]"
       }`}
     >
       {!primary && active && (
@@ -180,7 +185,7 @@ export default function Navbar() {
                 onClick={closeMenu}
               />
               <motion.aside
-                className="fixed bottom-0 right-0 top-0 z-[90] flex w-[82vw] max-w-sm flex-col border-l border-[#E8DCCF] bg-white p-4 shadow-2xl shadow-[#20130D]/25"
+                className="fixed bottom-0 right-0 top-0 z-[90] flex w-[84vw] max-w-sm flex-col border-l border-[#E8DCCF] bg-[#FFFBF6] p-4 shadow-2xl shadow-[#20130D]/25"
                 initial={{ x: "100%" }}
                 animate={{ x: 0 }}
                 exit={{ x: "100%" }}
@@ -204,6 +209,7 @@ export default function Navbar() {
                       {...link}
                       active={isActive(link.to)}
                       onClick={closeMenu}
+                      block
                       layoutId="mobile-nav-active-pill"
                     />
                   ))}
@@ -216,6 +222,7 @@ export default function Navbar() {
                       primary
                       active={isActive("/admin/dashboard")}
                       onClick={closeMenu}
+                      block
                       layoutId="mobile-nav-active-pill"
                     />
                   )}
